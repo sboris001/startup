@@ -6,4 +6,17 @@ Have you ever been faced with the question of “What is your favorite movie?”
 
 ## Design:
 #### Login Screen:
-[![Image](/images/LoginPage.png)](#)
+<picture>
+  <img alt="Image Alt Text" src="/images/LoginPage.png" height=250 width=300>
+</picture>
+
+#### Library:
+<picture>
+  <img alt="Image Alt Text" src="/images/LibraryPage.png" height=250 width=400>
+</picture>
+
+## Key Features:
+- Secure login over HTTPS
+- Keep track of movies you’ve seen in a personal library
+- Rate those movies on a scale from 1 to 10
+- See what others are rating movies in real time
