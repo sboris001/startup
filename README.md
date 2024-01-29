@@ -6,4 +6,32 @@ Have you ever been faced with the question of “What is your favorite movie?”
 
 ## Design:
 #### Login Screen:
-[![Image](/images/LoginPage.png)](#)
+<picture>
+  <img alt="Image Alt Text" src="/images/LoginPage.png" height=250 width=300>
+</picture>
+
+#### Library:
+<picture>
+  <img alt="Image Alt Text" src="/images/LibraryPage.png" height=250 width=400>
+</picture>
+
+## Key Features:
+- Secure login over HTTPS
+- Keep track of movies you’ve seen in a personal library
+- Rate those movies on a scale from 1 to 10
+- See what others are rating movies in real time
+
+## Technologies:
+
+I will be using the required technologies in the following ways:
+- HTML: This will be used for the structure of the application and will involve two HTML pages.  The first page will be for user login and the second page will be the personal library with the ability to add movies with an associated rating.
+- CSS: This will be used for the styling of the web application so it looks professional and works on various browser sizes.
+- Javascript: This will be used for login, movie rating and adding, and backend endpoint calls.
+- Web service: Backend service with endpoints for the following -
+  - Login
+  - Retrieving movie information
+  - Submitting ratings
+  - Retrieving libraries
+- Authentication and DB persistence: This will be used to store users, movie libraries, and ratings in a database.  This will be used to register and login users whose credentials are securely stored in the database.  Users must be authenticated before adding movies to a library.
+- WebSocket: As people rate movies, their ratings will be broadcast to all other users real time as shown in the library page design above.
+- React: The application will be ported to use the React web framework.
