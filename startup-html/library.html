@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>Movie Rater</h1>
+    <nav>
+        <menu>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="library.html">Library</a></li>
+            <li><a href="about.html">About</a></li>
+        </menu>
+    </nav>
+    <hr>
+    </header>
+
+    <main>
+        <h1>User's Library</h1>
+        <table>
+            <tr>
+                <td>Movie Title</td>
+                <td>| User Rating</td>
+                <td>| Average Rating</td>
+            </tr>
+            <tr>
+                <td>Peanut Butter Falcon</td>
+                <td>| 8.5</td>
+                <td>| 7.6</td>
+            </tr>
+            <tr>
+                <td>Uncut Gems</td>
+                <td>| 6.4</td>
+                <td>| 7.4</td>
+            </tr>
+            <tr>
+                <td>Baby Driver</td>
+                <td>| 9.0</td>
+                <td>| 7.5</td>
+            </tr>
+        </table><br>
+        <form method="get" action="library.html">
+            <label for="addMovie">Add Movie: </label>
+            <input type="text" id="movieTitle" placeholder="Movie Title"><br>
+            <label for="rating">Your Rating: </label>
+            <input type="number" id="movieRating" placeholder="Rating out of 10">
+            <button type="submit">Add to library</button>
+        </form>
+        <hr>
+    </main>
+
+    <footer>
+        Author name(s)<br>
+        <a href="https://github.com/sboris001/startup">GitHub</a>
+    </footer>
+
+</body>
+</html>
