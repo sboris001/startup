@@ -44,6 +44,6 @@ For this deliverable I built out the structure of my application using HTML.
   - leaderboard.html: There will also be a page that will display the top ten movies based on average rating from each user, including how many reviews that movie received
 - Links: There is a navigation bar at the top of the screen with links to each html page.  Each page also has a footer linking my github repo.
 - Text: I have represented the user library with a very rudimentary table filled with example text of what a user's library might look like.
-- Images: On my Library page I incorporated images which are posters that corespond to the user's movie entry.
+- Images: On my Library page I incorporated images which are posters that corespond to the user's movie entry.  I will use an API to get these posters once the user has submitted the title of the movie they would like to add.
 - DB/Login - Input box and submit button for login. The user's library represents data pulled from the database.  Same for the leaderboard.
 - WebSocket - On the library page you will be able to see realtime what other people are rating movies.
