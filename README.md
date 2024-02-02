@@ -35,3 +35,15 @@ I will be using the required technologies in the following ways:
 - Authentication and DB persistence: This will be used to store users, movie libraries, and ratings in a database.  This will be used to register and login users whose credentials are securely stored in the database.  Users must be authenticated before adding movies to a library.
 - WebSocket: As people rate movies, their ratings will be broadcast to all other users real time as shown in the library page design above.
 - React: The application will be ported to use the React web framework.
+
+# HTML Deliverable
+For this deliverable I built out the structure of my application using HTML.
+- HTML Pages: Three HTML pages
+  - index.html: The home page for my app where people can log in to their account with a username and password
+  - library.html: This page will be each user's personal library that they've been adding movie ratings too.  This addition of movies will be done with Javascript and can be done from this same page.  Also, when adding movies it will use an external API to get more information about the movie such as release date, rating, and a link to a poster.
+  - leaderboard.html: There will also be a page that will display the top ten movies based on average rating from each user, including how many reviews that movie received
+- Links: There is a navigation bar at the top of the screen with links to each html page.  Each page also has a footer linking my github repo.
+- Text: I have represented the user library with a very rudimentary table filled with example text of what a user's library might look like.
+- Images: On my Library page I incorporated images which are posters that corespond to the user's movie entry.
+- DB/Login - Input box and submit button for login. The user's library represents data pulled from the database.  Same for the leaderboard.
+- WebSocket - On the library page you will be able to see realtime what other people are rating movies.
