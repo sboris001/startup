@@ -1,55 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="bg">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Library</title>
 </head>
 <body>
     <header>
-        <h1>Movie Rater</h1>
     <nav>
-        <menu>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="library.html">Library</a></li>
-            <li><a href="leaderboard.html">Movie Leaderboard</a></li>
+        <menu class="topnav">
+            <a href="index.html">Home</a>
+            <a class="active" href="library.html">Library</a>
+            <a href="leaderboard.html">Leaderboard</a>
         </menu>
     </nav>
-    <hr>
+    <label>
+        <input type="checkbox" class="alertCheckbox" autocomplete="off" />
+        <div class="alert notice">
+          <span class="alertClose">X</span>
+          <span class="alertText">
+            <table>
+                <tr>
+                    <td>- OtherUser just rated "Blade Runner 2049":</td>
+                    <td>5/10</td>
+                </tr>
+                <tr>
+                    <td>- OtherUser just rated "Leon the Professional":</td>
+                    <td>5/10</td>
+                </tr>
+                <tr>
+                    <td>- AnotherUser just rated "Brawl in Cell Block 99":</td>
+                    <td>7/10</td>
+                </tr>
+            </table> 
+          </span>
+        </div>
+      </label>
     </header>
 
     <main>
-        <p> - OtherUser just rated "Blade Runner 2049":  5/10</p>
-        <p> - OtherUser just rated "Leon the Professional":  6.5/10</p>
-        <p> - AnotherUser just rated "Brawl in Cell Block 99":  7/10</p>
-        <h1>User's Library</h1>
-        <table>
-            <tr>
-                <td>Movie Title</td>
-                <td>| User Rating</td>
-                <td>| Average Rating</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Peanut Butter Falcon</td>
-                <td>&nbsp;&nbsp;8.5</td>
-                <td>&nbsp;&nbsp;7.6</td>
-                <td><img src="https://m.media-amazon.com/images/M/MV5BOWVmZGQ0MGYtMDI1Yy00MDkxLWJiYjQtMmZjZmQ0NDFmMDRhXkEyXkFqcGdeQXVyNjg3MDMxNzU@._V1_SX300.jpg" alt="Peanut Butter Falcon poster" height="30%" width="30%"/></td>
-                
-            </tr>
-            <tr>
-                <td>Uncut Gems</td>
-                <td>&nbsp;&nbsp;6.4</td>
-                <td>&nbsp;&nbsp;7.4</td>
-                <td><img src="https://m.media-amazon.com/images/M/MV5BZDhkMjUyYjItYWVkYi00YTM5LWE4MGEtY2FlMjA3OThlYmZhXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg" alt="Uncut Gems poster" height="30%" width="30%"></td>
-            </tr>
-            <tr>
-                <td>Baby Driver</td>
-                <td>&nbsp;&nbsp;9.0</td>
-                <td>&nbsp;&nbsp;7.5</td>
-                <td><img src="https://m.media-amazon.com/images/M/MV5BMjM3MjQ1MzkxNl5BMl5BanBnXkFtZTgwODk1ODgyMjI@._V1_SX300.jpg" alt="Baby Driver poster" height="30%" width="30%"></td>
-            </tr>
-        </table><br>
+
+        <ul class="results gallery">
+            <li class="result first">
+              <a href="#"><img src="https://m.media-amazon.com/images/M/MV5BMTI5MTE1OTAzOV5BMl5BanBnXkFtZTcwNDc2OTgyMQ@@._V1_SX300.jpg" width="500" height="500" alt=""></a>
+            </li>
+            <li class="result">
+              <a href="#"><img src="https://m.media-amazon.com/images/M/MV5BMTYyODg0NDU1OV5BMl5BanBnXkFtZTgwNjcxMzU0MjI@._V1_SX300.jpg" width="500" height="500" alt=""></a>
+            </li>
+            <li class="result">
+              <a href="#"><img src="https://m.media-amazon.com/images/M/MV5BOWVmZGQ0MGYtMDI1Yy00MDkxLWJiYjQtMmZjZmQ0NDFmMDRhXkEyXkFqcGdeQXVyNjg3MDMxNzU@._V1_SX300.jpg" width="500" height="500" alt=""></a>
+            </li>
+            <li class="result">
+              <a href="#"><img src="https://images.unsplash.com/photo-1523437237164-d442d57cc3c9?crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;h=500&amp;ixid=MnwxfDB8MXxyYW5kb218MHx8bGFuZHNjYXBlfHx8fHx8MTY2MjEyMDE3OA&amp;ixlib=rb-1.2.1&amp;q=80&amp;utm_campaign=api-credit&amp;utm_medium=referral&amp;utm_source=unsplash_source&amp;w=500" width="500" height="500" alt=""></a>
+            </li>
+            <li class="result">
+              <a href="#"><img src="https://images.unsplash.com/photo-1494625927555-6ec4433b1571?crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;h=500&amp;ixid=MnwxfDB8MXxyYW5kb218MHx8bGFuZHNjYXBlfHx8fHx8MTY2MjEyMDE4MA&amp;ixlib=rb-1.2.1&amp;q=80&amp;utm_campaign=api-credit&amp;utm_medium=referral&amp;utm_source=unsplash_source&amp;w=500" width="500" height="500" alt=""></a>
+            </li>
+            <li class="result">
+              <a href="#"><img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;h=500&amp;ixid=MnwxfDB8MXxyYW5kb218MHx8bGFuZHNjYXBlfHx8fHx8MTY2MjEyMDE4Mw&amp;ixlib=rb-1.2.1&amp;q=80&amp;utm_campaign=api-credit&amp;utm_medium=referral&amp;utm_source=unsplash_source&amp;w=500" width="500" height="500" alt=""></a>
+            </li>
+            <li class="result">
+              <a href="#"><img src="https://images.unsplash.com/photo-1600240644455-3edc55c375fe?crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;h=500&amp;ixid=MnwxfDB8MXxyYW5kb218MHx8bGFuZHNjYXBlfHx8fHx8MTY2MjEyMDE4NQ&amp;ixlib=rb-1.2.1&amp;q=80&amp;utm_campaign=api-credit&amp;utm_medium=referral&amp;utm_source=unsplash_source&amp;w=500" width="500" height="500" alt=""></a>
+            </li>
+            <li class="result">
+              <a href="#"><img src="https://images.unsplash.com/photo-1435732960391-11053ee5e6b6?crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;h=500&amp;ixid=MnwxfDB8MXxyYW5kb218MHx8bGFuZHNjYXBlfHx8fHx8MTY2MjEyMDE4OQ&amp;ixlib=rb-1.2.1&amp;q=80&amp;utm_campaign=api-credit&amp;utm_medium=referral&amp;utm_source=unsplash_source&amp;w=500" width="500" height="500" alt=""></a>
+            </li>
+            <li class="result">
+              <a href="#"><img src="https://images.unsplash.com/photo-1518717202715-9fa9d099f58a?crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;h=500&amp;ixid=MnwxfDB8MXxyYW5kb218MHx8bGFuZHNjYXBlfHx8fHx8MTY2MjEyMDE5MQ&amp;ixlib=rb-1.2.1&amp;q=80&amp;utm_campaign=api-credit&amp;utm_medium=referral&amp;utm_source=unsplash_source&amp;w=500" width="500" height="500" alt=""></a>
+            </li>
+            <li class="result">
+              <a href="#"><img src="https://images.unsplash.com/photo-1484318571209-661cf29a69c3?crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;h=500&amp;ixid=MnwxfDB8MXxyYW5kb218MHx8bGFuZHNjYXBlfHx8fHx8MTY2MjEyMDE5NA&amp;ixlib=rb-1.2.1&amp;q=80&amp;utm_campaign=api-credit&amp;utm_medium=referral&amp;utm_source=unsplash_source&amp;w=500" width="500" height="500" alt=""></a>
+            </li>
+            <li class="result">
+              <a href="#"><img src="https://images.unsplash.com/photo-1502481851512-e9e2529bfbf9?crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;h=500&amp;ixid=MnwxfDB8MXxyYW5kb218MHx8bGFuZHNjYXBlfHx8fHx8MTY2MjEyMDE5Ng&amp;ixlib=rb-1.2.1&amp;q=80&amp;utm_campaign=api-credit&amp;utm_medium=referral&amp;utm_source=unsplash_source&amp;w=500" width="500" height="500" alt=""></a>
+            </li>
+            <li class="result">
+              <a href="#"><img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?crop=entropy&amp;cs=tinysrgb&amp;fit=crop&amp;fm=jpg&amp;h=500&amp;ixid=MnwxfDB8MXxyYW5kb218MHx8bGFuZHNjYXBlfHx8fHx8MTY2MjEyMDE5OQ&amp;ixlib=rb-1.2.1&amp;q=80&amp;utm_campaign=api-credit&amp;utm_medium=referral&amp;utm_source=unsplash_source&amp;w=500" width="500" height="500" alt=""></a>
+            </li>
+          </ul>
+
         <form method="get" action="library.html">
             <label for="addMovie">Add Movie: </label>
             <input type="text" id="movieTitle" placeholder="Movie Title"><br>
@@ -57,7 +87,6 @@
             <input type="number" id="movieRating" placeholder="Rating out of 10">
             <button type="submit">Add to library</button>
         </form>
-        <hr>
     </main>
 
     <footer>
