@@ -64,7 +64,7 @@ h1 {
 }
 
 .addPlacement {
-    width: 25%;
+    width: 330px;
     text-align: center;
     background-color: #2c2c2c;
     padding-bottom: 15px;
@@ -92,7 +92,7 @@ h1 {
 
 .btn {
     text-align: right;
-    padding-right: 30%;
+    padding-right: 35px;
     padding-top: 10px;
 }
 
@@ -102,4 +102,24 @@ h1 {
     outline: none;
     border-radius: 100px;
     padding: 6px 10px;
+}
+
+.btn1 {
+    width: 90px;
+    height: 25px;
+    font-weight: 700;
+    border-radius: 100px;
+    border: none;
+    margin: 25px;
+    overflow: hidden;
+    position: relative;
+    margin: 0;
+}
+
+.btn1:hover {
+    background-color: #2c2c2c;
+    color: white;
+    cursor:pointer;
+    border:solid;
+    border-radius: 100px;
 }
