@@ -1,3 +1,31 @@
 p {
     color: white;
 }
+
+table {
+    width: 90%;
+    text-align: center;
+    margin-top: 60px;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-collapse: collapse;
+    border: solid 4px #2c2c2c;
+}
+
+tr {
+    height: 50px;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+tr:nth-child(odd) {background-color: lightgrey;}
+
+.spacing {
+    height: auto;
+    padding: 30px;
+}
+
+.title {
+    text-align: center;
+    font-size: 3em;
+    color: white;
+}
