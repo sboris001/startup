@@ -46,3 +46,27 @@ body, html {
     background-color: #ddd;
     color:black;
 }
+
+
+.author {
+    background-color: #2c2c2c;
+    position: absolute;
+    bottom: 0%;
+    overflow: hidden;
+    width:100%;
+    margin:0;
+    padding-left: 10px;
+}
+
+#pageContainer {
+    position: relative;
+    min-height: 100vh;
+}
+
+#contentWrap {
+    padding-bottom: 2.5rem;    /* Footer height */
+}
+
+a:visited {
+    color: white;
+}
