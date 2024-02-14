@@ -28,14 +28,12 @@ body {
   }
 
 .login {
-    width: 50%;
     height: 250px;
     background: #2c2c2c;
-    padding: 8%;
+    padding: 15px 8% 3% 8%;
     border-radius: 17px;
     font-size:1.3em;
     margin:auto;
-    padding-top:15px;
     box-sizing:initial;
 }
 
