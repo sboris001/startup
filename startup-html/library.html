@@ -21,15 +21,32 @@
             </header>
 
             <main>
-                <section class="alertSection">
-                    <div class="alert">
-                        <ul>
-                            <li>user4 just rated "The Beekeeper" - 3.2</li>
-                            <li>user3 just rated "The Dark Knight" - 9.2</li>
-                            <li>user2 just rated "The Amazing Spiderman" - 6.9</li>
-                        </ul>
+                <section class="mainTop">
+                    <section class="addMovie">
+                        <div class="addPlacement">
+                            <p>Add Movie</p>
+                            <form action="library.html" method="get" class="addForm">
+                                <div class="gridItem">Movie:&nbsp;&nbsp;</div> 
+                                <div class="formItem">&nbsp;&nbsp;<input class="input" type="text" name="movie" id="movie" placeholder="Enter a movie title"></div> 
+                                <div class="gridItem">Your rating:&nbsp;&nbsp;</div> 
+                                <div class="formItem">&nbsp;&nbsp;<input class="input" type="text" name="rating" id="rating" placeholder="Enter your rating"><br><div class="btn"><button class="btn1" type="submit">Add</button></div></div> 
+                            </form>
+                        </div>
+                    </section>
+                    <div class="right">
+                        <section class="alertSection">
+                            <div class="alert">
+                                <ul>
+                                    <li>user4 just rated "The Beekeeper" - 3.2</li>
+                                    <li>user3 just rated "The Dark Knight" - 9.2</li>
+                                    <li>user2 just rated "The Amazing Spiderman" - 6.9</li>
+                                </ul>
+                            </div>
+                        </section>
                     </div>
+                    
                 </section>
+                
                 <section class="titleSection">
                     <div class="title"><h1>User's Library</h1></div>
                 </section>
@@ -42,17 +59,6 @@
                     <div class="libraryItems"><img src="https://m.media-amazon.com/images/M/MV5BNzA1Njg4NzYxOV5BMl5BanBnXkFtZTgwODk5NjU3MzI@._V1_SX300.jpg" alt="Blade Runner 2049 poster" height="250"><p>Blade Runner 2049<br>8.2</p></div>
                     <div class="libraryItems"><img src="https://m.media-amazon.com/images/M/MV5BOTA5NDZlZGUtMjAxOS00YTRkLTkwYmMtYWQ0NWEwZDZiNjEzXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg" alt="Whiplash poster" height="250"><p>Whiplash<br>9.0</p></div>
                     <div class="libraryItems"><img src="https://m.media-amazon.com/images/M/MV5BYTE4YzczNDQtNmQzNS00ZTZjLThiMzEtOTUzOGQ5ODQzNzY1XkEyXkFqcGdeQXVyMTA3NTQ0Mzkw._V1_SX300.jpg" alt="Gunpowder Milkshake poster" height="250"><p>Gunpowder Milkshake<br>1.0</p></div>
-                </section>
-                <section class="addMovie">
-                    <div class="addPlacement">
-                        <p>Add Movie</p>
-                        <form action="library.html" method="get" class="addForm">
-                            <div class="gridItem">Movie:&nbsp;&nbsp;</div> 
-                            <div class="formItem">&nbsp;&nbsp;<input class="input" type="text" name="movie" id="movie" placeholder="Enter a movie title"></div> 
-                            <div class="gridItem">Your rating:&nbsp;&nbsp;</div> 
-                            <div class="formItem">&nbsp;&nbsp;<input class="input" type="text" name="rating" id="rating" placeholder="Enter your rating"><br><div class="btn"><button class="btn1" type="submit">Add</button></div></div> 
-                        </form>
-                    </div>
                 </section>
             </main>
         </div>

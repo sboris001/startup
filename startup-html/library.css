@@ -1,6 +1,7 @@
 .alertSection {
     display: flex;
     flex-direction: row-reverse;
+    margin-top: 25px;
 }
 
 .librarySection {
@@ -60,7 +61,8 @@ h1 {
 
 .addMovie {
     display:flex;
-    flex-direction: row-reverse;
+    flex-direction: column;
+    width: 50%;
 }
 
 .addPlacement {
@@ -68,9 +70,9 @@ h1 {
     text-align: center;
     background-color: #2c2c2c;
     padding-bottom: 15px;
-    margin-bottom: 40px;
+    margin-top: 40px;
     border-radius: 15px;
-    margin-right: 40px;
+    margin-left: 40px;
 }
 
 .addForm {
@@ -122,4 +124,12 @@ h1 {
     cursor:pointer;
     border:solid;
     border-radius: 100px;
+}
+
+.mainTop {
+    display: flex;
+}
+
+.right {
+    margin-left: 20%;
 }
