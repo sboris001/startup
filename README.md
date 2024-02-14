@@ -47,3 +47,12 @@ For this deliverable I built out the structure of my application using HTML.
 - Images: On my Library page I incorporated images which are posters that corespond to the user's movie entry.  I will use an API to get these posters once the user has submitted the title of the movie they would like to add.
 - DB/Login - Input box and submit button for login. The user's library represents data pulled from the database.  Same for the leaderboard.
 - WebSocket - On the library page you will be able to see realtime what other people are rating movies.
+
+# CSS Deliverable
+For this deliverable I properly styled the application into its final appearance using CSS.
+ - Header, footer, and main content body are structured where they need to be
+ - Navigation elements - I created a navigation bar that spans the top of the page.  There are three links that change color when hovered or clicked and link to each page
+ - Responsive to window resizing - My app uses flex and grid to fit to each screen size optimally
+ - Application elements - used good contrast and whitespace
+ - Application text content - Conisistent fonts and sizing
+ - Application images - Images are placed into a grid with even spacing that wraps to the next line if the screen gets too small to fit multiple images side by side
