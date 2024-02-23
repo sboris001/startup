@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="styles.css">
+    <script src="login.js"></script>
     <title>Home</title>
 </head>
 <body>
@@ -23,9 +24,9 @@
         <div class="center">
             <form class="login" method="get" action="library.html">
                 <h3>Movie Rater</h3>
-                <input type="text" id="username" placeholder="Username">
+                <input type="text" id="name" placeholder="Username">
                 <input type="password" id="password" placeholder="Password">
-                <button class="btn1" type="submit">Login</button>
+                <button class="btn1" onclick="login()">Login</button>
             </form>
         </div>
     </main>
