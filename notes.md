@@ -428,3 +428,677 @@ p {
 ```
 
 ## CSS Animation
+
+Using CSS to animate your components is an easy way to make your application feel alive and interactive. You create CSS animations using the `animation` properties and defining `keyframes` for what the element should look like at different times in the animation. Let's walk through an example.
+
+We have a paragraph of centered text and we want it to zoom in until its size is 20% of the view height.
+
+```
+p {
+  text-align: center;
+  font-size: 20vh;
+}
+```
+
+To make this happen we specify that we are animating the selected elements by adding the `animation-name` property with a value of demo. This name refers to the name of the `keyframes` that we will specify in a minute. The keyframes tell what CSS properites should be applied at different key points in the animation sequence. We also add an `animation-duration` property in order to specify that the animation should last for three seconds.
+
+```
+p {
+  text-align: center;
+  font-size: 20vh;
+
+  animation-name: demo;
+  animation-duration: 3s;
+}
+```
+
+Now we are ready to create the keyframes. We don't have to define what happens at every millisecond of the animation. Instead we only need to define the key points, and CSS will generate a smooth transition to move from one keyframe to another. In our case we simply want to start with text that is invisible and have it zoom into the full final size. We can do this with two frames that are designated with the keywords `from` and `to`.
+
+```
+@keyframes demo {
+  from {
+    font-size: 0vh;
+  }
+
+  to {
+    font-size: 20vh;
+  }
+}
+
+```
+
+That's everything we need to do. However, let's make one more addition. It would look better if towards the end, the paragraph bounced out a little bigger than its final size. We can accommodate that by adding another key frame that happens 95 percent through the animation.
+
+```
+@keyframes demo {
+  from {
+    font-size: 0vh;
+  }
+
+  95% {
+    font-size: 21vh;
+  }
+
+  to {
+    font-size: 20vh;
+  }
+}
+```
+
+# Responsive Design
+
+Modern web applications are expected to run well on a large variety of computing devices. This includes everything from desktops, to mobile phones, to shopping kiosks, to car dashboards. This ability to reconfigure the interface so the application accommodates and takes advantage of the screen's size and orientation is called `responsive design`.
+
+Much of HTML and CSS is already fluid due to the fact that it responds to the browser window being resized. For example a paragraph element will resize when the browser window is resized. However, the following features can completely change the layout of the application based on the device's size and orientation.
+
+## Display
+
+The CSS display property allows you to change how an HTML element is displayed by the browser. The common options for the display property include the following.
+
+| Value | Meaning |
+| --- | --- |
+| none | Don't display this element. The element still exists, but the browser will not render it. |
+| block | Display this element with a width that fills its parent element. A p or div element has block display by default. |
+| inline | Display this element with a width that is only as big as its content. A b or span element has inline display by default. |
+| flex | Display this element's children in a flexible orientation. |
+| grid | Display this element's children in a grid orientation. |
+
+We can demonstrate the different CSS display property values with the following HTML that contains a bunch of `div` elements. By default `div` elements have a display property value of `block`.
+
+```
+<div class="none">None</div>
+<div class="block">Block</div>
+<div class="inline">Inline1</div>
+<div class="inline">Inline2</div>
+<div class="flex">
+  <div>FlexA</div>
+  <div>FlexB</div>
+  <div>FlexC</div>
+  <div>FlexD</div>
+</div>
+<div class="grid">
+  <div>GridA</div>
+  <div>GridB</div>
+  <div>GridC</div>
+  <div>GridD</div>
+</div>
+
+```
+
+If we modify the display property associated with each element with the following CSS, then we get a totally different rendering.
+
+```
+.none {
+  display: none;
+}
+
+.block {
+  display: block;
+}
+
+.inline {
+  display: inline;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+```
+
+## Viewport meta tag
+
+When smart mobile devices started gaining popularity they began to be used to view websites. However, the websites were optimized for desktop displays and not little tiny mobile screens. To solve this mobile browsers automatically started scaling the website so that it looked better on a small screen. Unfortunately, as web applications started being responsive to the screen size, the mobile browser's scaling got in the way. The solution is to include a meta tag in the `head` element of all your HTML pages. This tells the browser to not scale the page.
+
+```
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+```
+
+## Float
+
+The float css property moves an element to the left or right of its container element and allows inline elements to wrap around it. For example, if we had an `aside` element followed by a large paragraph of text, we could create the following CSS rule in order to cause the text to wrap around the aside.
+
+```
+aside {
+  float: right;
+  padding: 3em;
+  margin: 0.5em;
+  border: black solid thin;
+}
+```
+
+When the browser resizes, the text will flow around the floating element. 
+
+## Media queries
+
+One of the main CSS features for creating responsive applications is the `@media` selector. This selector dynamically detects the size and orientation of the device and applies CSS rules to represent the structure of the HTML in a way that accommodates the change.
+
+We can use the `@media` selector to tell us which side of the screen (technically the viewport) is the longest. A media query takes one or more predicates separated by boolean operators. In our case we simply want to know if the screen is oriented in portrait mode (short side on top) or not. If it is then we transform all of our div elements by rotating them 270 degrees.
+
+```
+@media (orientation: portrait) {
+  div {
+    transform: rotate(270deg);
+  }
+}
+
+```
+
+You can also use media queries to make entire pieces of your application disappear, or move to a different location. For example, if we had an aside that was helpful when the screen is wide, but took up too much room when the screen got narrow, we could use the following media query to make it disappear.
+
+```
+@media (orientation: portrait) {
+  aside {
+    display: none;
+  }
+}
+```
+
+## CSS Grid
+
+The `grid` display layout is useful when you want to display a group of child elements in a responsive grid.  We start with a container element that has a bunch of child elements
+
+```css
+<div class="container">
+  <div class="card"></div>
+  <div class="card"></div>
+  <div class="card"></div>
+  <div class="card"></div>
+  <div class="card"></div>
+  <div class="card"></div>
+  <div class="card"></div>
+  <div class="card"></div>
+  <div class="card"></div>
+</div>
+```
+
+We turn this into a responsive grid by including a CSS `display` property with the value of `grid` on the container element.  This tells the browser that all of the children of this element are to be displayed in a grid flow.
+
+- The `grid-template-columns`  property specifies the layout of the grid columns.  We set this to repeatedly define each olumn to auto-fill the parent element’s width with children that are resized, in this case, to a minimum of 300 pixels and a maximum of one equal fractional unit (`1fr` ) of the parents total width.  A fractional unit is dynamically computed by splitting up the parent element’s width into equal parts.
+- Next, we fix the height of the rows to be exactly 300 pixels by specifying the `grid-auto-rows` property
+- Finally, we finish off the grid construction by setting the `grid-gap` property to have a gap of at least 1 em between each grid item.
+
+```css
+.container {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	grid-auto-rows: 300px;
+	grid-gap: 1em;
+}
+```
+
+## CSS Flexbox
+
+The `flex` display layout is useful when you want to partition your application into areas that responsively move around as the window resizes or the orientation changes.
+
+- Here is some example html that we can mess with
+
+```html
+<body>
+  <header>
+    <h1>CSS flex &amp; media query</h1>
+  </header>
+  <main>
+    <section>
+      <h2>Controls</h2>
+    </section>
+    <section>
+      <h2>Content</h2>
+    </section>
+  </main>
+  <footer>
+    <h2>Footer</h2>
+  </footer>
+</body>
+
+```
+
+Now we can use Flexbox to make it all come alive. We make the body element into a responsive flexbox by including the CSS `display` property with the value of `flex`. This tells the browser that all of the children of this element are to be displayed in a flex flow. We want our top level flexbox children to be column oriented and so we add the `flex-direction` property with a value of `column`. We then add some simple other declarations to zero out the margin and fill the entire viewport with our application frame.
+
+```css
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  height: 100vh;
+}
+```
+
+To get the division of space for the flexbox children correct we add the following flex properties to each of the children.
+
+- **header** - `flex: 0 80px` - Zero means it will not grow and 80px means it has a starting basis height of 80 pixels. This creates a fixed size box.
+- **footer** - `flex: 0 30px` - Like the header it will not grow and has a height of 30 pixels.
+- **main** - `flex: 1` - One means it will get one fractional unit of growth, and since it is the only child with a non-zero growth value, it will get all the remaining space. Main also gets some additional properties because we want it to also be a flexbox container for the controls and content area. So we set its display to be `flex` and specify the `flex-direction` to be row so that the children are oriented side by side.
+
+```
+header {
+  flex: 0 80px;
+  background: hsl(223, 57%, 38%);
+}
+
+footer {
+  flex: 0 30px;
+  background: hsl(180, 10%, 10%);
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+```
+
+Now we just need to add CSS to the control and content areas represented by the two child section elements. We want the controls to have 25% of the space and the content to have the remaining. So we set the `flex` property value to 1 and 3 respectively. That means that the controls get one unit of space and the content gets three units of space. No matter how we resize things this ratio will responsively remain.
+
+```
+section:nth-child(1) {
+  flex: 1;
+  background-color: hsl(180, 10%, 80%);
+}
+section:nth-child(2) {
+  flex: 3;
+  background-color: white;
+}
+
+```
+
+## Media Query
+
+That completes our original design, but we also want to handle small screen sizes. To do this, we add some media queries that drop the header and footer if the viewport gets too short, and orient the main sections as rows if it gets too narrow.
+
+To support the narrow screen (portrait mode), we include a media query that detects when we are in portrait orientation and sets the `flex-direction` of the main element to be column instead of row. This causes the children to be stacked on top of each other instead of side by side.
+
+To handle making our header and footer disappear when the screen is to short to display them, we use a media query that triggers when our viewport height has a maximum value of 700 pixels. When that is true we change the `display` property for both the header and the footer to `none` so that they will be hidden. When that happens the main element becomes the only child and since it has a flex value of 1, it takes over everything.
+
+```
+@media (orientation: portrait) {
+  main {
+    flex-direction: column;
+  }
+}
+
+@media (max-height: 700px) {
+  header {
+    display: none;
+  }
+  footer {
+    display: none;
+  }
+}
+```
+
+## CSS Frameworks
+
+- Tailwind
+- Bootstrap
+
+# JavaScript
+
+## Introduction
+
+Let's start with a basic example. The following JavaScript will concatenate three strings together and then throw away the result. Not very useful, but JavaScript doesn't complain much.
+
+```
+'Hello' + ' ' + 'world';
+
+```
+
+Only slightly more complex is to call a function with the result of our concatenated string. In this case we call the JavaScript runtime's built in function `console.log` to output the string to the debugger console.
+
+```
+console.log('Hello' + ' ' + 'world');
+// OUTPUT: Hello world
+
+```
+
+You can also write your own functions.
+
+```
+function join(a, b) {
+  return a + ' ' + b;
+}
+
+console.log(join('Hello', 'world'));
+// OUTPUT: Hello world
+```
+
+## Comments
+
+You can comment your JavaScript with either line or block comments.
+
+```
+// Line comment
+
+/*
+Block comment
+*/
+
+```
+
+## Code delimiters
+
+While not technically required in most cases, it is considered good form to end JavaScript statements with a semicolon (`;`). Code blocks, and their resulting scope, are defined with curly braces (`{ }`).
+
+# JavaScript console
+
+The JavaScript console object provides interaction with the JavaScript runtime's debugger console. This usage of console should not be confused with your operating system's console (AKA terminal or command line). The console object provides functionality for outputting the value of text and objects, running timers, and counting iterations. These are useful debugging tools when you can actually execute your code in an interactive debugger (such as VS Code).
+
+## Log
+
+The basic usage of the console object is to output a log message.
+
+```
+console.log('hello');
+// OUTPUT: hello
+
+```
+
+You can create formatted messages in the log parameter.
+
+```
+console.log('hello %s', 'world');
+// OUTPUT: hello world
+
+```
+
+You can even specify CSS declarations in order to style the log output.
+
+```
+console.log('%c JavaScript Demo', 'font-size:1.5em; color:green;');
+// OUTPUT: JavaScript Demo //in large green text
+
+```
+
+## Timers
+
+If you are trying to see how long a piece of code is running you can wrap it with `time` and `timeEnd` calls and it will output the duration between the `time` and `timeEnd` calls.
+
+```
+console.time('demo time');
+// ... some code that takes a long time.
+console.timeEnd('demo time');
+// OUTPUT: demo time: 9762.74 ms
+
+```
+
+## Count
+
+To see how many times a block of code is called you can use the `count` function.
+
+```
+console.count('a');
+// OUTPUT: a: 1
+console.count('a');
+// OUTPUT: a: 2
+console.count('b');
+// OUTPUT: b: 1
+```
+
+# Adding JavaScript to HTML
+
+You can insert JavaScript into HTML either by directly including it in the HTML within the content of a `<script>` element, or by using the `src` attribute of the script element to reference an external JavaScript file.
+
+**index.js**
+
+```
+function sayHello() {
+  console.log('hello');
+}
+
+```
+
+**index.html**
+
+```
+<head>
+  <script src="index.js"></script>
+</head>
+<body>
+  <button onclick="sayHello()">Say Hello</button>
+  <button onclick="sayGoodbye()">Say Goodbye</button>
+  <script>
+    function sayGoodbye() {
+      alert('Goodbye');
+    }
+  </script>
+</body>
+
+```
+
+Notice that we call the `sayHello` and `sayGoodbye` JavaScript functions from the HTML in the `onclick` attribute of the button element. Special attributes like `onclick` automatically create event listeners for different DOM events that call the code contained in the attribute's value. The code specified by the attribute value can be a simple call to a function or any JavaScript code.
+
+```
+<button onclick="let i=1;i++;console.log(i)">press me</button>
+<!-- OUTPUT: 2 -->
+```
+
+# JavaScript type and construct
+
+## Declaring variables
+
+Variables are declared using either the `let` or `const` keyword. `let` allows you to change the value of the variable while `const` will cause an error if you attempt to change it.
+
+```
+let x = 1;
+
+const y = 2;
+```
+
+⚠ Originally JavaScript used the keyword `var` to define variables. This has been deprecated because they cause hard-to-detect errors in code related to the scope of the variable. You should avoid `var` and always declare your variables either with `let` or `const`.
+
+## Type
+
+JavaScript defines several primitive types.
+
+| Type | Meaning |
+| --- | --- |
+| Null | The type of a variable that has not been assigned a value. |
+| Undefined | The type of a variable that has not been defined. |
+| Boolean | true or false. |
+| Number | A 64-bit signed number. |
+| BigInt | A number of arbitrary magnitude. |
+| String | A textual sequence of characters. |
+| Symbol | A unique value. |
+
+Of these types Boolean, Number, and String are the types commonly thought of when creating variables. However, variables may commonly refer to the Null or Undefined primitive. Because JavaScript does not enforce the declaration of a variable before you use it, it is entirely possible for a variable to have the type of Undefined.
+
+In addition to the above primitives, JavaScript defines several object types. Some of the more commonly used objects include the following:
+
+| Type | Use | Example |
+| --- | --- | --- |
+| Object | A collection of properties represented by name-value pairs. Values can be of any type. | {a:3, b:'fish'} |
+| Function | An object that has the ability to be called. | function a() {} |
+| Date | Calendar dates and times. | new Date('1995-12-17') |
+| Array | An ordered sequence of any type. | [3, 'fish'] |
+| Map | A collection of key-value pairs that support efficient lookups. | new Map() |
+| JSON | A lightweight data-interchange format used to share information across programs. | {"a":3, "b":"fish"} |
+
+## Common operators
+
+When dealing with a number variable, JavaScript supports standard mathematical operators like `+` (add), `-` (subtract), `*` (multiply), `/` (divide), and `===` (equality). For string variables, JavaScript supports `+` (concatenation) and `===` (equality).
+
+## Type conversions
+
+JavaScript is a weakly typed language. That means that a variable always has a type, but the variable can change type when it is assigned a new value, or that types can be automatically converted based upon the context that they are used in. Sometimes the results of automatic conversions can be unexpected from programmers who are used to strongly typed languages. Consider the following examples.
+
+```
+2 + '3';
+// OUTPUT: '23'
+2 * '3';
+// OUTPUT: 6
+[2] + [3];
+// OUTPUT: '23'
+true + null;
+// OUTPUT: 1
+true + undefined;
+// OUTPUT: NaN
+
+```
+
+Getting unexpected results is especially common when dealing with the [equality](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness) operator.
+
+```
+1 == '1';
+// OUTPUT: true
+null == undefined;
+// OUTPUT: true
+'' == false;
+// OUTPUT: true
+
+```
+
+⚠ The unexpected results happen in JavaScript because it uses [complex rules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness#strict_equality_using) for defining equality that depend upon the conversion of a type to a boolean value. You will sometimes hear this referred to as [falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) and [truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy) evaluations. To remove this confusion, JavaScript introduced the strict equality (===) and inequality (!==) operators. The strict operators skip the type conversion when computing equality. This results in the following.
+
+```
+1 === '1';
+// OUTPUT: false
+null === undefined;
+// OUTPUT: false
+'' === false;
+// OUTPUT: false
+
+```
+
+Because strict equality is considered more intuitive, it is almost always preferred and should be used in your code.
+
+Here is a fun example of JavaScript's type conversion. Execute the following in the browser's debugger console.
+
+```
+('b' + 'a' + +'a' + 'a').toLowerCase();
+
+```
+
+## Conditionals
+
+JavaScript supports many common programming language conditional constructs. This includes `if`, `else`, and `if else`. Here are some examples.
+
+```
+if (a === 1) {
+  //...
+} else if (b === 2) {
+  //...
+} else {
+  //...
+}
+
+```
+
+You can also use the ternary operator. This provides a compact `if else` representation.
+
+```
+a === 1 ? console.log(1) : console.log('not 1');
+
+```
+
+You can use boolean operations in the expression to create complex predicates. Common boolean operators include `&&` (and), `||` (or), and `!` (not).
+
+```
+if (true && (!false || true)) {
+  //...
+}
+
+```
+
+### Loops
+
+JavaScript supports many common programming language looping constructs. This includes `for`, `for in`, `for of`, `while`, `do while`, and `switch`. Here are some examples.
+
+### for
+
+Note the introduction of the common post increment operation (`i++`) for adding one to a number.
+
+```
+for (let i = 0; i < 2; i++) {
+  console.log(i);
+}
+// OUTPUT: 0 1
+
+```
+
+### do while
+
+```
+let i = 0;
+do {
+  console.log(i);
+  i++;
+} while (i < 2);
+// OUTPUT: 0 1
+
+```
+
+### while
+
+```
+let i = 0;
+while (i < 2) {
+  console.log(i);
+  i++;
+}
+// OUTPUT: 0 1
+
+```
+
+### for in
+
+The `for in` statement iterates over an object's property names.
+
+```
+const obj = { a: 1, b: 'fish' };
+for (const name in obj) {
+  console.log(name);
+}
+// OUTPUT: a
+// OUTPUT: b
+
+```
+
+For arrays the object's name is the array index.
+
+```
+const arr = ['a', 'b'];
+for (const name in arr) {
+  console.log(name);
+}
+// OUTPUT: 0
+// OUTPUT: 1
+
+```
+
+### for of
+
+The `for of` statement iterates over an iterable's (Array, Map, Set, ...) property values.
+
+```
+const arr = ['a', 'b'];
+for (const val of arr) {
+  console.log(val);
+}
+// OUTPUT: 'a'
+// OUTPUT: 'b'
+
+```
+
+### Break and continue
+
+All of the looping constructs demonstrated above allow for either a `break` or `continue` statement to abort or advance the loop.
+
+```
+let i = 0;
+while (true) {
+  console.log(i);
+  if (i === 0) {
+    i++;
+    continue;
+  } else {
+    break;
+  }
+}
+// OUTPUT: 0 1
+```
