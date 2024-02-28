@@ -176,14 +176,44 @@ function fetchAndDisplayMoviePoster(movieTitle, rating) {
 document.addEventListener('DOMContentLoaded', function() {
     // Retrieve the entire movie library from local storage
     const movieLibrary = JSON.parse(localStorage.getItem('movieLibrary')) || [];
-    
+
     // Display all the movies in the library
-    movieLibrary.forEach(movie => {
-        fetchAndDisplayMoviePoster(movie.title, movie.rating);
-    });
+        movieLibrary.forEach(movie => {
+            fetchAndDisplayMoviePoster(movie.title, movie.rating);
+        });
 });
 
 function clearLocalStorage() {
     // Clear the entire local storage
     localStorage.clear();
+}
+
+// Set the maximum number of messages to display
+const MAX_MESSAGES = 5;
+
+// Function to simulate chat messages that will come over WebSocket
+setInterval(() => {
+    const rating = (Math.floor(Math.random() * 10) + Math.round(Math.random() * 10) / 10).toFixed(1);
+    const chatText = document.querySelector('#player-messages');
+    let users = ["Greg", "Frederick", "Hershey", "Marcell", "Jose", "Ignacio", "Albert", "Grace", "Horacio", "Patrick", "Lucas", "Luke", "Brighton"];
+    let movies = ["The Dark Knight", "Bee Movie", "Jumanji", "Get Smart", "Red Notice", "Brightburn", "Spider-man", "Ironman", "Logan Lucky", "21 Jump Street", "The Peanut Butter Falcon", "The Godfather Part II", "The Godfather", "Pulp Fiction"];
+
+    // Create a new message
+    const newMessage = `<div class="event"><span class="player-event">${getRandomItem(users)}</span> rated "${getRandomItem(movies)}" ${rating}</div>`;
+
+    // Add the new message to the top of the message list
+    chatText.innerHTML = newMessage + chatText.innerHTML;
+
+    // Check if the number of messages exceeds the maximum limit
+    const messages = chatText.querySelectorAll('.event');
+    if (messages.length > MAX_MESSAGES) {
+        // Remove the oldest message
+        messages[messages.length - 1].remove();
+    }
+}, 5000);
+
+// Function to get a random item from an array
+function getRandomItem(array) {
+    const randomIndex = Math.floor(Math.random() * array.length);
+    return array[randomIndex];
 }
