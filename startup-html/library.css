@@ -134,3 +134,15 @@ h1 {
 /* #userName {
     display: inline;
 } */
+
+p.rating {
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+p.title {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    color: white;
+}

@@ -27,7 +27,7 @@ function rating() {
 
 function createPoster(src, alt, height, title, rating) {
     let divElement = document.createElement('div');
-    divElement.classList.add('libraryItems')
+    divElement.classList.add('libraryItems');
 
     let imgElement = document.createElement('img');
     imgElement.src = src;
@@ -35,14 +35,21 @@ function createPoster(src, alt, height, title, rating) {
     imgElement.height = height;
     divElement.appendChild(imgElement);
 
-    let paragraph = document.createElement('p');
-    paragraph.textContent = `${title}\n${rating}`;
-    divElement.appendChild(paragraph);
+    let paragraph1 = document.createElement('p');
+    paragraph1.textContent = title;
+    paragraph1.style.color = "white";
+    divElement.appendChild(paragraph1);
 
-    return divElement
+    let paragraph2 = document.createElement('p');
+    paragraph2.textContent = rating;
+    paragraph2.style.color = "white";
+    divElement.appendChild(paragraph2);
+
+    return divElement;
 }
 
-function getMovieInfoPromise(title) {
+
+function queryString(title) {
     const cleanTitle = title.split(" ");
     let string = "";
     for (const element of cleanTitle) {
@@ -52,34 +59,97 @@ function getMovieInfoPromise(title) {
         string = string + element;
       }
     }
-    const query = `http://www.omdbapi.com/?t=${string}&apikey=4fcd8264`
+    return `http://www.omdbapi.com/?t=${string}&apikey=4fcd8264`;
+}
 
-    return fetch(query)
-        .then(response => response.json())
-        .then(data => {
-            return {
-                title: data.Title,
-                poster: data.Poster
-            };
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-            throw error;
-        });
+async function getMovieInfoPromise(title) {
+    let query = queryString(title);
+
+    try {
+        const response = await fetch(query);
+        const data = await response.json();
+        return {
+            title: data.Title,
+            poster: data.Poster
+        };
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
 }
 
 
 function addMovie() {
     const movieTitle = document.getElementById('movie').value;
-    const rating = document.getElementById('rating').value;
-    fetchAndDisplayMoviePoster(movieTitle, rating);
+    const ratingInput = document.getElementById('rating').value;
+
+    // Validate the rating input
+    const rating = parseFloat(ratingInput);
+    if (isNaN(rating)) {
+        // Display an alert if the rating is not a number
+        alert("Invalid rating: Please enter a number");
+        return false;
+    }
+
+    // Format the rating to always have one decimal place
+    const formattedRating = rating.toFixed(1);
+
+    // Retrieve existing movie library or initialize an empty array
+    let movieLibrary = JSON.parse(localStorage.getItem('movieLibrary')) || [];
+    
+    // Check if the movie already exists in the library
+    const existingMovieIndex = movieLibrary.findIndex(movie => movie.title === movieTitle);
+
+    if (existingMovieIndex !== -1) {
+        // Update the rating of the existing movie
+        movieLibrary[existingMovieIndex].rating = formattedRating;
+    } else {
+        // Fetch movie data and display poster
+        getMovieInfoPromise(movieTitle)
+            .then(movieData => {
+                const { title, poster } = movieData;
+
+                // Check if the poster URL is "N/A" or an empty string
+                if (!poster || poster === 'N/A') {
+                    // Display an alert to the user indicating the movie information couldn't be found
+                    alert(`No information found for "${title}". Please be more specific.`);
+                    return; // Exit the function if the poster URL is "N/A" or empty
+                }
+
+                // Add the new movie to the library with the formatted rating
+                movieLibrary.push({ title: movieTitle, rating: formattedRating });
+                
+                // Save the updated movie library in local storage
+                localStorage.setItem('movieLibrary', JSON.stringify(movieLibrary));
+                
+                // Display the poster
+                fetchAndDisplayMoviePoster(title, formattedRating);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
     return false;
 }
+
+
+
+
+
 
 function fetchAndDisplayMoviePoster(movieTitle, rating) {
     getMovieInfoPromise(movieTitle)
         .then(movieData => {
             const { title, poster } = movieData;
+
+            // Check if the poster URL is "N/A" or an empty string
+            if (!poster || poster === 'N/A') {
+                // Display an alert to the user indicating the movie information couldn't be found
+                alert(`No information found for "${title}". Please be more specific.`);
+                return; // Exit the function if the poster URL is "N/A" or empty
+            }
+
             const targetSection = document.querySelector('.librarySection');
 
             const imageData = {
@@ -96,4 +166,20 @@ function fetchAndDisplayMoviePoster(movieTitle, rating) {
         .catch(error => {
             console.error('Error:', error);
         });
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Retrieve the entire movie library from local storage
+    const movieLibrary = JSON.parse(localStorage.getItem('movieLibrary')) || [];
+    
+    // Display all the movies in the library
+    movieLibrary.forEach(movie => {
+        fetchAndDisplayMoviePoster(movie.title, movie.rating);
+    });
+});
+
+function clearLocalStorage() {
+    // Clear the entire local storage
+    localStorage.clear();
 }
