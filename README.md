@@ -57,7 +57,7 @@ For this deliverable I properly styled the application into its final appearance
  - Application text content - Conisistent fonts and sizing
  - Application images - Images are placed into a grid with even spacing that wraps to the next line if the screen gets too small to fit multiple images side by side
 
-#JavaScript Deliverable
+# JavaScript Deliverable
 For this deliverable I implemented my JavaScript so that the application works for a single user. I also added placeholders for future technology.
  - login - When you press the login button it takes you to the library page and saves your username to display on the page
  - library - My JavaScript does a few things on this page but essentially it takes in a movie title and a rating and if everything works out, it looks up the movie poster and displays it in your library with the title and rating below it.  If the title is not completely accurate it may not find the poster and will instead alert you with an error.  Other errors thrown include a rating out of range (0 - 10) or a rating that is text instead of a number. This is all stored in local storage for now but will be replaced with the database data later.
