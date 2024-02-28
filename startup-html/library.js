@@ -90,6 +90,10 @@ function addMovie() {
         alert("Invalid rating: Please enter a number");
         return false;
     }
+    if (rating < 0 || rating > 10) {
+        alert("Invalid rating: Please enter a number between 0.0 and 10.0");
+        return false;
+    }
 
     // Format the rating to always have one decimal place
     const formattedRating = rating.toFixed(1);
@@ -112,7 +116,7 @@ function addMovie() {
                 // Check if the poster URL is "N/A" or an empty string
                 if (!poster || poster === 'N/A') {
                     // Display an alert to the user indicating the movie information couldn't be found
-                    alert(`No information found for "${title}". Please be more specific.`);
+                    alert(`No information found for "${movieTitle}". Please check spelling or be more specific.`);
                     return; // Exit the function if the poster URL is "N/A" or empty
                 }
 
