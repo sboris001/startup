@@ -59,7 +59,7 @@ function queryString(title) {
         string = string + element;
       }
     }
-    return `http://www.omdbapi.com/?t=${string}&apikey=4fcd8264`;
+    return `https://www.omdbapi.com/?t=${string}&apikey=4fcd8264`;
 }
 
 async function getMovieInfoPromise(title) {
