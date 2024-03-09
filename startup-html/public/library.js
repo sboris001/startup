@@ -137,11 +137,6 @@ function addMovie() {
     return false;
 }
 
-
-
-
-
-
 function fetchAndDisplayMoviePoster(movieTitle, rating) {
     getMovieInfoPromise(movieTitle)
         .then(movieData => {
@@ -183,12 +178,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 });
 
-function clearLocalStorage() {
-    // Clear the entire local storage
-    localStorage.clear();
-}
-
-// Set the maximum number of messages to display
 const MAX_MESSAGES = 5;
 
 // Function to simulate chat messages that will come over WebSocket
@@ -200,8 +189,6 @@ setInterval(() => {
 
     // Create a new message
     const newMessage = `<div class="event"><span class="player-event">${getRandomItem(users)}</span> rated "${getRandomItem(movies)}" ${rating}</div>`;
-
-    // Add the new message to the top of the message list
     chatText.innerHTML = newMessage + chatText.innerHTML;
 
     // Check if the number of messages exceeds the maximum limit
