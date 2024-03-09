@@ -1,0 +1,77 @@
+
+.icon {
+    object-fit: none;
+}
+
+body {
+    color: white;
+}
+
+.cameraIcon {
+    display: flex;
+    justify-content: center;
+    margin: 3rem 0 1rem 0;
+}
+
+.username {
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    width:50%;
+    border-radius:5%;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+.login {
+    height: 250px;
+    background: #2c2c2c;
+    padding: 15px 8% 3% 8%;
+    border-radius: 17px;
+    font-size:1.3em;
+    margin:auto;
+    box-sizing:initial;
+}
+
+
+
+.login input[type="text"],
+.login input[type="password"]{
+    opacity: 1;
+    display: block;
+    border: none;
+    outline: none;
+    width: 90%;
+    height: 8%;
+    padding: 13px 18px;
+    margin: 20px 0 0 0;
+    font-size: 0.8em;
+    border-radius: 100px;
+    background: #3c3c3c;
+    color: white;
+}
+
+.btn1 {
+    padding: 8px 20px;
+    width: 125px;
+    height: 30px;
+    font-weight: 700;
+    border-radius: 100px;
+    border: none;
+    margin: 25px;
+    overflow: hidden;
+    position: relative;
+}
+
+.btn1:hover {
+    background-color: #2c2c2c;
+    color: white;
+    cursor:pointer;
+    border:solid;
+    border-radius: 100px;
+}
+
