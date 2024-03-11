@@ -14,30 +14,39 @@ app.use(express.static('public'));
 const apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
+// Login endpoint
+apiRouter.post('/login', (req, res) => {
+    const user = req.body;
+    login(user);
+    res.status(200).send('User has logged in successfully')
+});
+
+apiRouter.post('/logout', (req, res) => {
+   logout();
+   res.status(200).send('User was logged out successfully') 
+});
+
+// Get the user
+apiRouter.get('/user', (req, res) => {
+    const user = getUser();
+    res.status(200).json(user);
+})
+
 // Add movie endpoint
-app.post('/api/addMovie', (req, res) => {
-    // Extract movie data from request body
+apiRouter.post('/addMovie', (req, res) => {
     const { title, rating } = req.body;
-    // Add movie logic here
-    addMovie(title, rating);
-    res.status(200).send('Movie added successfully');
+    console.log(title)
+    console.log(rating)
+    addMovie({ title, rating });
+    res.status(200).json({ message: 'Movie added successfully' });
 });
 
-// Get movie ratings endpoint
-app.get('/api/movieRatings', (req, res) => {
+// Get movies
+apiRouter.get('/getMovies', (req, res) => {
     // Retrieve
-    const movieRatings = getMovieRatings();
+    const movies = getMovies();
     // Return
-    res.status(200).json(movieRatings);
-});
-
-// Generate leaderboard endpoint
-app.get('/api/leaderboard', (req, res) => {
-    // Generate leaderboard logic here
-    const leaderboard = generateLeaderboard();
-
-    // Return leaderboard as JSON
-    res.status(200).json(leaderboard);
+    res.status(200).json(movies);
 });
 
 // Return the application's default page if the path is unknown
@@ -48,3 +57,28 @@ app.use((_req, res) => {
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
+
+// Methods
+
+var movies = [{title: "Shawshank Redemption", rating: 10.0}]
+function addMovie(movie) {
+    movies.push(movie);
+}
+
+function getMovies() {
+    return movies;
+}
+var users
+function login(user) {
+    users = user;
+}
+
+function logout() {
+    users = '';
+    movies = [];
+    localStorage.clear();
+}
+
+function getUser() {
+    return users;
+}

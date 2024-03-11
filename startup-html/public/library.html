@@ -24,7 +24,7 @@
                         <div class="addPlacement">
                             <p>Add Movie</p>
                             <div style="padding: 0 0 0.5rem 0">
-                                <form onsubmit="return addMovie()" class="addForm">
+                                <form onsubmit="return addMovieFromForm()" class="addForm">
                                     <div class="gridItem">Movie:&nbsp;&nbsp;</div> 
                                     <div class="formItem">&nbsp;&nbsp;<input class="input" type="text" name="movie" id="movie"  placeholder="Enter a movie title"></div> 
                                     <div class="gridItem">Your rating:&nbsp;&nbsp;</div> 
@@ -51,9 +51,7 @@
                 <section class="titleSection">
                     <div class="title"><h1 id="userName"></h1><h1>'s Library</h1></div>
                     <script>
-                        const element = document.getElementById("userName");
-                        const text = getUser();
-                        element.innerHTML = text;
+                        displayUserName();
                     </script>
                 </section>
                 <section class="librarySection">

@@ -1,29 +1,82 @@
-function getUser(){
-    if (localStorage.getItem('userName') === '') {
-        return "User";
+async function getUser() {
+    try {
+        const response = await fetch('/api/user');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('There was a problem with the fetch', error);
+        throw error; // Re-throw the error to propagate it to the caller
     }
-    return localStorage.getItem('userName');
 }
 
-function movieName() {
-    const nameEl = document.querySelector("#movie");
-    localStorage.setItem("movie", nameEl.value);
-    window.location.href = "library.html";
+
+function displayUserName() {
+    const element = document.getElementById("userName");
+    getUser()
+        .then(user => {
+            element.innerHTML = user.user;
+        })
+        .catch(error => {
+            console.error('Error fetching user data:', error);
+        });
 }
 
-function getMovieName() {
-    return localStorage.getItem("movie");
+function addMovie(movieTitle, movieRating) {
+    fetch('/api/addMovie', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({title: movieTitle, rating: movieRating})
+    })
 }
 
-function getRating() {
-    return localStorage.getItem("rating");
+function addMovieFromForm() {
+    const movieTitle = document.getElementById('movie').value;
+    const ratingInput = document.getElementById('rating').value;
+    // console.log(movieTitle)
+    // console.log(ratingInput)
+    addMovie(movieTitle, ratingInput);
+    return false;
 }
 
-function rating() {
-    const nameEl = document.querySelector("#rating")
-    localStorage.setItem("rating", nameEl.value);
-    window.location.href = "library.html"
+
+// function getMovieName() {
+//     return localStorage.getItem("movie");
+// }
+
+// function getRating() {
+//     return localStorage.getItem("rating");
+// }
+
+async function getMovies() {
+    try {
+        const response = await fetch('/api/getMovies');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const movies = await response.json();
+        console.log('Movies received:', movies);
+        return movies;
+    } catch (error) {
+        console.error('Error fetching movies:', error);
+        throw error;
+    }
 }
+
+function displayMovies() {
+    const element = document.getElementById("userName");
+    getMovies()
+        .then(movie => {
+            console.log(movie);
+        })
+        .catch(error => {
+            console.error('Error fetching movie data:', error);
+        });
+}
+
 
 function createPoster(src, alt, height, title, rating) {
     let divElement = document.createElement('div');
@@ -79,63 +132,63 @@ async function getMovieInfoPromise(title) {
 }
 
 
-function addMovie() {
-    const movieTitle = document.getElementById('movie').value;
-    const ratingInput = document.getElementById('rating').value;
+// async function addMovie() {
+//     const movieTitle = document.getElementById('movie').value;
+//     const ratingInput = document.getElementById('rating').value;
 
-    // Validate the rating input
-    const rating = parseFloat(ratingInput);
-    if (isNaN(rating)) {
-        // Display an alert if the rating is not a number
-        alert("Invalid rating: Please enter a number");
-        return false;
-    }
-    if (rating < 0 || rating > 10) {
-        alert("Invalid rating: Please enter a number between 0.0 and 10.0");
-        return false;
-    }
+//     // Validate the rating input
+//     const rating = parseFloat(ratingInput);
+//     if (isNaN(rating)) {
+//         // Display an alert if the rating is not a number
+//         alert("Invalid rating: Please enter a number");
+//         return false;
+//     }
+//     if (rating < 0 || rating > 10) {
+//         alert("Invalid rating: Please enter a number between 0.0 and 10.0");
+//         return false;
+//     }
 
-    // Format the rating to always have one decimal place
-    const formattedRating = rating.toFixed(1);
+//     // Format the rating to always have one decimal place
+//     const formattedRating = rating.toFixed(1);
 
-    // Retrieve existing movie library or initialize an empty array
-    let movieLibrary = JSON.parse(localStorage.getItem('movieLibrary')) || [];
+//     // Retrieve existing movie library or initialize an empty array
+//     let movieLibrary = await getMovies();
     
-    // Check if the movie already exists in the library
-    const existingMovieIndex = movieLibrary.findIndex(movie => movie.title === movieTitle);
+//     // Check if the movie already exists in the library
+//     const existingMovieIndex = movieLibrary.findIndex(movie => movie.title === movieTitle);
 
-    if (existingMovieIndex !== -1) {
-        // Update the rating of the existing movie
-        movieLibrary[existingMovieIndex].rating = formattedRating;
-    } else {
-        // Fetch movie data and display poster
-        getMovieInfoPromise(movieTitle)
-            .then(movieData => {
-                const { title, poster } = movieData;
+//     if (existingMovieIndex !== -1) {
+//         // Update the rating of the existing movie
+//         movieLibrary[existingMovieIndex].rating = formattedRating;
+//     } else {
+//         // Fetch movie data and display poster
+//         getMovieInfoPromise(movieTitle)
+//             .then(movieData => {
+//                 const { title, poster } = movieData;
 
-                // Check if the poster URL is "N/A" or an empty string
-                if (!poster || poster === 'N/A') {
-                    // Display an alert to the user indicating the movie information couldn't be found
-                    alert(`No information found for "${movieTitle}". Please check spelling or be more specific.`);
-                    return; // Exit the function if the poster URL is "N/A" or empty
-                }
+//                 // Check if the poster URL is "N/A" or an empty string
+//                 if (!poster || poster === 'N/A') {
+//                     // Display an alert to the user indicating the movie information couldn't be found
+//                     alert(`No information found for "${movieTitle}". Please check spelling or be more specific.`);
+//                     return; // Exit the function if the poster URL is "N/A" or empty
+//                 }
 
-                // Add the new movie to the library with the formatted rating
-                movieLibrary.push({ title: movieTitle, rating: formattedRating });
+//                 // Add the new movie to the library with the formatted rating
+//                 movieLibrary.push({ title: movieTitle, rating: formattedRating });
                 
-                // Save the updated movie library in local storage
-                localStorage.setItem('movieLibrary', JSON.stringify(movieLibrary));
+//                 // Save the updated movie library in local storage
+//                 localStorage.setItem('movieLibrary', JSON.stringify(movieLibrary));
                 
-                // Display the poster
-                fetchAndDisplayMoviePoster(title, formattedRating);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
+//                 // Display the poster
+//                 fetchAndDisplayMoviePoster(title, formattedRating);
+//             })
+//             .catch(error => {
+//                 console.error('Error:', error);
+//             });
+//     }
 
-    return false;
-}
+//     return false;
+// }
 
 function fetchAndDisplayMoviePoster(movieTitle, rating) {
     getMovieInfoPromise(movieTitle)
@@ -168,14 +221,12 @@ function fetchAndDisplayMoviePoster(movieTitle, rating) {
 }
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Retrieve the entire movie library from local storage
-    const movieLibrary = JSON.parse(localStorage.getItem('movieLibrary')) || [];
+document.addEventListener('DOMContentLoaded', async function() {
+    const movieLibrary =  await getMovies();
 
-    // Display all the movies in the library
-        movieLibrary.forEach(movie => {
-            fetchAndDisplayMoviePoster(movie.title, movie.rating);
-        });
+    for (const movie of movieLibrary){
+        fetchAndDisplayMoviePoster(movie.title, movie.rating)
+    }
 });
 
 const MAX_MESSAGES = 5;
