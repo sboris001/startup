@@ -63,3 +63,11 @@ For this deliverable I implemented my JavaScript so that the application works f
  - library - My JavaScript does a few things on this page but essentially it takes in a movie title and a rating and if everything works out, it looks up the movie poster and displays it in your library with the title and rating below it.  If the title is not completely accurate it may not find the poster and will instead alert you with an error.  Other errors thrown include a rating out of range (0 - 10) or a rating that is text instead of a number. This is all stored in local storage for now but will be replaced with the database data later.
  - WebSocket - I used the setInterval function to periodically say that a random user has rated a random movie with a random rating.  I made it so that after the list reaches 5 lines it will cycle out the oldest line before adding the new line.
  - leaderboard logic - The leaderboard takes an average rating for each movie and orders the top ten rated movies, also listing how many ratings they have received.  For now it is only based on what is in the local storage so it will only be for the one user but this will be updated later.
+
+# Service Deliverable
+For this deliverable I added backend endpoints that receives username at login and returns that username on the library page -- when a new user logs in it replaces the current user and clears all info (This will be updated so that data persists tied to a specific user when we do login).  I also have endpoints which receives movie data and stores it as well as retrieves that movie information for display.
+ - Node.js/Express HTTP service - done!
+ - Static middleware for frontend - done!
+ - Calls to third party endpoints - done! (This is how I obtain the posters for display on the library screen -- I call an api called OMDBapi)
+ - Backend service endpoints - Placeholders for login is there -- Endpoints for adding and retrieving movie data are implemented.
+ - Frontend calls service endpoints - I replaced all instances of local storage with calls to my backend services using the fetch function.
