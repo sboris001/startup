@@ -1,13 +1,5 @@
 // leaderboard.js
 
-// Function to retrieve movie ratings from local storage
-// function getMovieRatings() {
-//     // Retrieve movie ratings from local storage
-//     const movieRatings = JSON.parse(localStorage.getItem('movieLibrary')) || [];
-//     console.log(movieRatings);
-//     return movieRatings;
-// }
-
 
 async function getMovies() {
     try {
