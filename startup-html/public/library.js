@@ -23,15 +23,6 @@ function displayUserName() {
         });
 }
 
-// function addMovie(movieTitle, movieRating) {
-//     fetch('/api/addMovie', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({title: movieTitle, rating: movieRating})
-//     })
-// }
 
 function addMovieFromForm() {
     const movieTitle = document.getElementById('movie').value;
@@ -39,15 +30,6 @@ function addMovieFromForm() {
     addMovie(movieTitle, ratingInput);
     return false;
 }
-
-
-// function getMovieName() {
-//     return localStorage.getItem("movie");
-// }
-
-// function getRating() {
-//     return localStorage.getItem("rating");
-// }
 
 async function getMovies() {
     try {
@@ -172,7 +154,7 @@ async function addMovie(movieTitle, ratingInput) {
                 // Add the new movie to the library with the formatted rating
                 movieLibrary.push({ title: movieTitle, rating: formattedRating });
                 
-                // Save the updated movie library in local storage
+                // Save the updated movie library
                 fetch('/api/addMovie', {
                     method: 'POST',
                     headers: {

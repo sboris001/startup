@@ -1,10 +1,27 @@
 // leaderboard.js
 
 // Function to retrieve movie ratings from local storage
-function getMovieRatings() {
-    // Retrieve movie ratings from local storage
-    const movieRatings = JSON.parse(localStorage.getItem('movieLibrary')) || [];
-    return movieRatings;
+// function getMovieRatings() {
+//     // Retrieve movie ratings from local storage
+//     const movieRatings = JSON.parse(localStorage.getItem('movieLibrary')) || [];
+//     console.log(movieRatings);
+//     return movieRatings;
+// }
+
+
+async function getMovies() {
+    try {
+        const response = await fetch('/api/getMovies');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const movies = await response.json();
+        console.log('Movies received:', movies);
+        return movies;
+    } catch (error) {
+        console.error('Error fetching movies:', error);
+        throw error;
+    }
 }
 
 // Function to calculate the average rating for a specific movie
@@ -45,8 +62,8 @@ function displayLeaderboard(topMovies) {
 }
 
 // Main function to generate the leaderboard
-function generateLeaderboard() {
-    const movieRatings = getMovieRatings();
+async function generateLeaderboard() {
+    const movieRatings = await getMovies();
     const moviesWithAverages = movieRatings.map(movie => {
         return {
             title: movie.title,
