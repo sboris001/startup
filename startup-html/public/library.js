@@ -7,7 +7,7 @@ async function getUser() {
         return await response.json();
     } catch (error) {
         console.error('There was a problem with the fetch', error);
-        throw error; // Re-throw the error to propagate it to the caller
+        throw error;
     }
 }
 
