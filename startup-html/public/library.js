@@ -23,21 +23,19 @@ function displayUserName() {
         });
 }
 
-function addMovie(movieTitle, movieRating) {
-    fetch('/api/addMovie', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({title: movieTitle, rating: movieRating})
-    })
-}
+// function addMovie(movieTitle, movieRating) {
+//     fetch('/api/addMovie', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({title: movieTitle, rating: movieRating})
+//     })
+// }
 
 function addMovieFromForm() {
     const movieTitle = document.getElementById('movie').value;
     const ratingInput = document.getElementById('rating').value;
-    // console.log(movieTitle)
-    // console.log(ratingInput)
     addMovie(movieTitle, ratingInput);
     return false;
 }
@@ -132,63 +130,67 @@ async function getMovieInfoPromise(title) {
 }
 
 
-// async function addMovie() {
-//     const movieTitle = document.getElementById('movie').value;
-//     const ratingInput = document.getElementById('rating').value;
+async function addMovie(movieTitle, ratingInput) {
 
-//     // Validate the rating input
-//     const rating = parseFloat(ratingInput);
-//     if (isNaN(rating)) {
-//         // Display an alert if the rating is not a number
-//         alert("Invalid rating: Please enter a number");
-//         return false;
-//     }
-//     if (rating < 0 || rating > 10) {
-//         alert("Invalid rating: Please enter a number between 0.0 and 10.0");
-//         return false;
-//     }
+    // Validate the rating input
+    const rating = parseFloat(ratingInput);
+    if (isNaN(rating)) {
+        // Display an alert if the rating is not a number
+        alert("Invalid rating: Please enter a number");
+        return false;
+    }
+    if (rating < 0 || rating > 10) {
+        alert("Invalid rating: Please enter a number between 0.0 and 10.0");
+        return false;
+    }
 
-//     // Format the rating to always have one decimal place
-//     const formattedRating = rating.toFixed(1);
+    // Format the rating to always have one decimal place
+    const formattedRating = rating.toFixed(1);
 
-//     // Retrieve existing movie library or initialize an empty array
-//     let movieLibrary = await getMovies();
+    // Retrieve existing movie library or initialize an empty array
+    let movieLibrary = await getMovies();
     
-//     // Check if the movie already exists in the library
-//     const existingMovieIndex = movieLibrary.findIndex(movie => movie.title === movieTitle);
+    // Check if the movie already exists in the library
+    const existingMovieIndex = movieLibrary.findIndex(movie => movie.title === movieTitle);
 
-//     if (existingMovieIndex !== -1) {
-//         // Update the rating of the existing movie
-//         movieLibrary[existingMovieIndex].rating = formattedRating;
-//     } else {
-//         // Fetch movie data and display poster
-//         getMovieInfoPromise(movieTitle)
-//             .then(movieData => {
-//                 const { title, poster } = movieData;
+    if (existingMovieIndex !== -1) {
+        // Update the rating of the existing movie
+        movieLibrary[existingMovieIndex].rating = formattedRating;
+    } else {
+        // Fetch movie data and display poster
+        getMovieInfoPromise(movieTitle)
+            .then(movieData => {
+                const { title, poster } = movieData;
 
-//                 // Check if the poster URL is "N/A" or an empty string
-//                 if (!poster || poster === 'N/A') {
-//                     // Display an alert to the user indicating the movie information couldn't be found
-//                     alert(`No information found for "${movieTitle}". Please check spelling or be more specific.`);
-//                     return; // Exit the function if the poster URL is "N/A" or empty
-//                 }
+                // Check if the poster URL is "N/A" or an empty string
+                if (!poster || poster === 'N/A') {
+                    // Display an alert to the user indicating the movie information couldn't be found
+                    alert(`No information found for "${movieTitle}". Please check spelling or be more specific.`);
+                    return; // Exit the function if the poster URL is "N/A" or empty
+                }
 
-//                 // Add the new movie to the library with the formatted rating
-//                 movieLibrary.push({ title: movieTitle, rating: formattedRating });
+                // Add the new movie to the library with the formatted rating
+                movieLibrary.push({ title: movieTitle, rating: formattedRating });
                 
-//                 // Save the updated movie library in local storage
-//                 localStorage.setItem('movieLibrary', JSON.stringify(movieLibrary));
+                // Save the updated movie library in local storage
+                fetch('/api/addMovie', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({title: movieTitle, rating: formattedRating})
+                })
                 
-//                 // Display the poster
-//                 fetchAndDisplayMoviePoster(title, formattedRating);
-//             })
-//             .catch(error => {
-//                 console.error('Error:', error);
-//             });
-//     }
+                // Display the poster
+                fetchAndDisplayMoviePoster(title, formattedRating);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
 
-//     return false;
-// }
+    return false;
+}
 
 function fetchAndDisplayMoviePoster(movieTitle, rating) {
     getMovieInfoPromise(movieTitle)

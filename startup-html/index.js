@@ -60,7 +60,7 @@ app.listen(port, () => {
 
 // Methods
 
-var movies = [{title: "Shawshank Redemption", rating: 10.0}]
+var movies = []
 function addMovie(movie) {
     movies.push(movie);
 }
@@ -76,7 +76,6 @@ function login(user) {
 function logout() {
     users = '';
     movies = [];
-    localStorage.clear();
 }
 
 function getUser() {
