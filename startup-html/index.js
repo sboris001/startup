@@ -71,10 +71,6 @@ function getMovies() {
 var users
 function login(user) {
     users = user;
-}
-
-function logout() {
-    users = '';
     movies = [];
 }
 
