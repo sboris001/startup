@@ -7,7 +7,7 @@ const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostna
 const client = new MongoClient(url);
 const db = client.db('startup');
 const userCollection = db.collection('users');
-const scoreCollection = db.collection('ratings');
+const ratingCollection = db.collection('ratings');
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
@@ -41,13 +41,17 @@ async function createUser(username, password) {
 }
 
 function addRating(rating) {
-  scoreCollection.insertOne(rating);
+  ratingCollection.insertOne(rating);
 }
+
+// function getRatings() {
+//     const query = { rating:}
+// }
 
 module.exports = {
   getUser,
   getUserByToken,
   createUser,
-  addScore,
-  getHighScores,
+  addRating,
+//   getRatings,
 };
