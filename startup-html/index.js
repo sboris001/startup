@@ -1,5 +1,8 @@
 const express = require('express');
 const app = express();
+const DB = require('./database.js');
+const bcrypt = require('bcrypt');
+const cookieParser = require('cookie-parser');
 
 // The service port. In production the frontend code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
