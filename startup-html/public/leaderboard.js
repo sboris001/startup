@@ -51,6 +51,16 @@ function displayLeaderboard(topMovies) {
     const leaderboardTable = document.getElementById('leaderboard-table');
     let tableBody = '';
 
+    // Add header row
+    tableBody += `
+        <tr>
+            <th>Rank</th>
+            <th>Title</th>
+            <th>Average Rating</th>
+            <th>Number of Ratings</th>
+        </tr>
+    `;
+
     // Iterate through the top 10 movies and populate the table
     topMovies.forEach((movie, index) => {
         tableBody += `
@@ -66,6 +76,7 @@ function displayLeaderboard(topMovies) {
     // Update the table body with the generated rows
     leaderboardTable.innerHTML = tableBody;
 }
+
 
 // Main function to generate the leaderboard
 async function generateLeaderboard() {
@@ -90,3 +101,24 @@ async function generateLeaderboard() {
 document.addEventListener('DOMContentLoaded', function() {
     generateLeaderboard();
 });
+
+// library.js (or any script that runs on the library page)
+document.addEventListener('DOMContentLoaded', async function() {
+    const isAuthenticated = await checkAuthentication();
+    if (!isAuthenticated) {
+        window.location.href = 'login.html';
+    }
+});
+
+async function checkAuthentication() {
+    try {
+        const response = await fetch('/api/auth/check', {
+            method: 'GET',
+            credentials: 'same-origin' // include credentials for cross-origin requests
+        });
+        return response.ok;
+    } catch (error) {
+        console.error('Error checking authentication:', error);
+        return false;
+    }
+}
