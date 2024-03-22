@@ -1,26 +1,12 @@
-async function getUser() {
-    try {
-        const response = await fetch('/api/user');
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return await response.json();
-    } catch (error) {
-        console.error('There was a problem with the fetch', error);
-        throw error;
-    }
+function getUser() {
+    return localStorage.getItem('userName');
 }
 
 
 function displayUserName() {
     const element = document.getElementById("userName");
-    getUser()
-        .then(user => {
-            element.innerHTML = user.user;
-        })
-        .catch(error => {
-            console.error('Error fetching user data:', error);
-        });
+    const user = getUser();
+    element.innerHTML = user;
 }
 
 

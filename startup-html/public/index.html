@@ -20,12 +20,12 @@
     <main>
         <div class="cameraIcon"><img src="assets/cameraIcon.svg" class="icon" height="105" width="105"/></div>
         <div class="center">
-            <form class="login" method="get" action="library.html">
+            <form class="login" method="get">
                 <h3>Movie Rater</h3>
                 <input type="text" id="name" placeholder="Username">
                 <input type="password" id="password" placeholder="Password">
-                <button class="btn1" onclick="loginUser()">Login</button>
-                <button class="btn1" onclick="createUser()">Create</button>
+                <button class="btn1" onclick="event.preventDefault(); loginUser()">Login</button>
+                <button class="btn1" onclick="event.preventDefault(); createUser()">Create</button>
             </form>
         </div>
     </main>

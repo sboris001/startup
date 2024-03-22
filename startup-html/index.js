@@ -25,6 +25,47 @@ app.set('trust proxy', true);
 var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
+
+// setAuthCookie in the HTTP response
+function setAuthCookie(res, authToken) {
+    res.cookie(authCookieName, authToken, {
+        secure: true,
+        httpOnly: true,
+        sameSite: 'strict',
+    });
+}
+
+// CreateAuth token for a new user
+apiRouter.post('/auth/create', async (req, res) => {
+    if (await DB.getUser(req.body.username)) {
+        res.status(409).send({ msg: 'Existing user' });
+    } else {
+        const user = await DB.createUser(req.body.username, req.body.password);
+
+        // Set the cookie
+        setAuthCookie(res, user.token);
+
+        res.send({
+        id: user._id,
+        });
+    }
+});
+
+
+// GetAuth token for the provided credentials
+apiRouter.post('/auth/login', async (req, res) => {
+    const user = await DB.getUser(req.body.username);
+    if (user) {
+        if (await bcrypt.compare(req.body.password, user.password)) {
+        setAuthCookie(res, user.token);
+        res.send({ id: user._id });
+        return;
+        }
+    }
+    res.status(401).send({ msg: 'Unauthorized' });
+});
+
+
 // Login endpoint
 apiRouter.post('/login', (req, res) => {
     const user = req.body;
