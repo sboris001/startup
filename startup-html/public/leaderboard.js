@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
     generateLeaderboard();
 });
 
-// library.js (or any script that runs on the library page)
+// authentication
 document.addEventListener('DOMContentLoaded', async function() {
     const isAuthenticated = await checkAuthentication();
     if (!isAuthenticated) {

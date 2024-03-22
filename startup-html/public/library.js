@@ -242,7 +242,7 @@ async function logout() {
     }
 }
 
-// library.js (or any script that runs on the library page)
+// Authentication
 document.addEventListener('DOMContentLoaded', async function() {
     const isAuthenticated = await checkAuthentication();
     if (!isAuthenticated) {
