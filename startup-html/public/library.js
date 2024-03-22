@@ -193,6 +193,7 @@ function fetchAndDisplayMoviePoster(movieTitle, rating) {
 
 document.addEventListener('DOMContentLoaded', async function() {
     const movieLibrary =  await getMovies();
+    console.log("MovieLibrary: ", movieLibrary)
 
     for (const movie of movieLibrary){
         fetchAndDisplayMoviePoster(movie.title, movie.rating)

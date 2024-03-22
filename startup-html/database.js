@@ -50,7 +50,12 @@ function addRating(username, title, rating) {
 }
 
 function getRatings(username) {
-    return ratingCollection.find({username: username})
+    const cursor = ratingCollection.find({username: username})
+    return cursor.toArray();
+}
+
+function getAllRatings() {
+    return ratingCollection.find();
 }
 
 function getOneRating(username, title, rating) {
@@ -64,4 +69,5 @@ module.exports = {
   addRating,
   getRatings,
   getOneRating,
+  getAllRatings,
 };

@@ -72,6 +72,27 @@ apiRouter.delete('/auth/logout', (_req, res) => {
   res.status(204).end();
 });
 
+// secureApiRouter verifies credentials for endpoints
+var secureApiRouter = express.Router();
+apiRouter.use(secureApiRouter);
+
+secureApiRouter.use(async (req, res, next) => {
+  authToken = req.cookies[authCookieName];
+  const user = await DB.getUserByToken(authToken);
+  if (user) {
+    next();
+  } else {
+    res.status(401).send({ msg: 'Unauthorized' });
+  }
+});
+
+// Get movies (MONGO)
+apiRouter.get('/getMovies', async (req, res) => {
+    authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+    const movies = await DB.getRatings(user.username);
+    res.status(200).json(movies);
+});
 
 
 // Add movie endpoint
@@ -84,13 +105,12 @@ apiRouter.post('/addMovie', (req, res) => {
 });
 
 // Get movies
-apiRouter.get('/getMovies', async (req, res) => {
-    // Retrieve
-    // const movies = await DB.getRatings(localStorage.getItem("userName"));
-    const movies = getMovies();
-    // Return
-    res.status(200).json(movies);
-});
+// apiRouter.get('/getMovies', async (req, res) => {
+//     // Retrieve
+//     const movies = getMovies();
+//     // Return
+//     res.status(200).json(movies);
+// });
 
 // Return the application's default page if the path is unknown
 app.use((_req, res) => {
@@ -103,10 +123,10 @@ app.listen(port, () => {
 
 // Methods
 
-var movies = []
-function addMovie(movie) {
-    movies.push(movie);
-}
+// var movies = []
+// function addMovie(movie) {
+//     movies.push(movie);
+// }
 
 function getMovies() {
     return movies;
