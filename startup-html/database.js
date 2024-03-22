@@ -43,7 +43,7 @@ async function createUser(username, password) {
 function addRating(username, title, rating) {
     const ratingEntry = {
         username: username,
-        movie: title,
+        title: title,
         rating: rating,
     };
     ratingCollection.insertOne(ratingEntry);

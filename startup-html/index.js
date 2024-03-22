@@ -94,15 +94,24 @@ apiRouter.get('/getMovies', async (req, res) => {
     res.status(200).json(movies);
 });
 
+//Add movies (MONGO)
+apiRouter.post('/addMovie', async (req, res) => {
+    authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+    const username = user.username;
+    DB.addRating(username, req.body.title, req.body.rating)
+    res.status(200).send({msg: 'Movie added successfully'})
+})
+
 
 // Add movie endpoint
-apiRouter.post('/addMovie', (req, res) => {
-    const { title, rating } = req.body;
-    console.log(title)
-    console.log(rating)
-    addMovie({ title, rating });
-    res.status(200).json({ message: 'Movie added successfully' });
-});
+// apiRouter.post('/addMovie', (req, res) => {
+//     const { title, rating } = req.body;
+//     console.log(title)
+//     console.log(rating)
+//     addMovie({ title, rating });
+//     res.status(200).json({ message: 'Movie added successfully' });
+// });
 
 // Get movies
 // apiRouter.get('/getMovies', async (req, res) => {
