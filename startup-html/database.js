@@ -53,10 +53,15 @@ function getRatings(username) {
     return ratingCollection.find({username: username})
 }
 
+function getOneRating(username, title, rating) {
+    return ratingCollection.find({username: username, movie: title, rating: rating})
+}
+
 module.exports = {
   getUser,
   getUserByToken,
   createUser,
   addRating,
   getRatings,
+  getOneRating,
 };

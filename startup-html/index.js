@@ -66,29 +66,13 @@ apiRouter.post('/auth/login', async (req, res) => {
 });
 
 
-// Login endpoint
-apiRouter.post('/login', (req, res) => {
-    const user = req.body;
-    login(user);
-    res.status(200).send('User has logged in successfully')
-});
-
-apiRouter.post('/logout', (req, res) => {
-   logout();
-   res.status(200).send('User was logged out successfully') 
-});
-
 // DeleteAuth token if stored in cookie
 apiRouter.delete('/auth/logout', (_req, res) => {
   res.clearCookie(authCookieName);
   res.status(204).end();
 });
 
-// Get the user
-apiRouter.get('/user', (req, res) => {
-    const user = getUser();
-    res.status(200).json(user);
-})
+
 
 // Add movie endpoint
 apiRouter.post('/addMovie', (req, res) => {
@@ -100,8 +84,9 @@ apiRouter.post('/addMovie', (req, res) => {
 });
 
 // Get movies
-apiRouter.get('/getMovies', (req, res) => {
+apiRouter.get('/getMovies', async (req, res) => {
     // Retrieve
+    // const movies = await DB.getRatings(localStorage.getItem("userName"));
     const movies = getMovies();
     // Return
     res.status(200).json(movies);
