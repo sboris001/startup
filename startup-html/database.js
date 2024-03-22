@@ -55,7 +55,8 @@ function getRatings(username) {
 }
 
 function getAllRatings() {
-    return ratingCollection.find();
+    const cursor =  ratingCollection.find();
+    return cursor.toArray();
 }
 
 function getOneRating(username, title, rating) {

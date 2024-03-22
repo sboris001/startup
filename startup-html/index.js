@@ -103,6 +103,11 @@ apiRouter.post('/addMovie', async (req, res) => {
     res.status(200).send({msg: 'Movie added successfully'})
 })
 
+// Get ALL movies (MONGO)
+apiRouter.get('/getAllMovies', async (req, res) => {
+    const movies = await DB.getAllRatings();
+    res.status(200).json(movies);
+});
 
 // Add movie endpoint
 // apiRouter.post('/addMovie', (req, res) => {
