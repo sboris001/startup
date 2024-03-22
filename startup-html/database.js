@@ -40,18 +40,23 @@ async function createUser(username, password) {
   return user;
 }
 
-function addRating(rating) {
-  ratingCollection.insertOne(rating);
+function addRating(username, title, rating) {
+    const ratingEntry = {
+        username: username,
+        movie: title,
+        rating: rating,
+    };
+    ratingCollection.insertOne(ratingEntry);
 }
 
-// function getRatings() {
-//     const query = { rating:}
-// }
+function getRatings(username) {
+    return ratingCollection.find({username: username})
+}
 
 module.exports = {
   getUser,
   getUserByToken,
   createUser,
   addRating,
-//   getRatings,
+  getRatings,
 };

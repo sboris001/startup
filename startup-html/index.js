@@ -78,6 +78,12 @@ apiRouter.post('/logout', (req, res) => {
    res.status(200).send('User was logged out successfully') 
 });
 
+// DeleteAuth token if stored in cookie
+apiRouter.delete('/auth/logout', (_req, res) => {
+  res.clearCookie(authCookieName);
+  res.status(204).end();
+});
+
 // Get the user
 apiRouter.get('/user', (req, res) => {
     const user = getUser();
