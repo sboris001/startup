@@ -77,14 +77,27 @@ var secureApiRouter = express.Router();
 apiRouter.use(secureApiRouter);
 
 secureApiRouter.use(async (req, res, next) => {
-  authToken = req.cookies[authCookieName];
-  const user = await DB.getUserByToken(authToken);
-  if (user) {
-    next();
-  } else {
-    res.status(401).send({ msg: 'Unauthorized' });
-  }
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+    if (user) {
+        next();
+    } else {
+        res.status(401).send({ msg: 'Unauthorized' });
+    }
 });
+
+// Route to check if the user is authenticated
+apiRouter.get('/api/auth/check', isAuthenticatedCheck);
+
+async function isAuthenticatedCheck(req, res) {
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+    if (user) {
+        res.status(200).end();
+    } else {
+        res.status(401).send({ msg: 'Unauthorized' });
+    }
+}
 
 // Get movies (MONGO)
 apiRouter.get('/getMovies', async (req, res) => {

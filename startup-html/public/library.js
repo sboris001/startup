@@ -226,3 +226,39 @@ function getRandomItem(array) {
     const randomIndex = Math.floor(Math.random() * array.length);
     return array[randomIndex];
 }
+
+
+async function logout() {
+    try {
+        await fetch('/api/auth/logout', {
+            method: 'DELETE',
+            credentials: 'same-origin' // include credentials for cross-origin requests
+        });
+        localStorage.clear(); // Clear local storage if needed
+        // Optionally redirect to the login page or perform other actions upon successful logout
+        window.location.href = 'index.html';
+    } catch (error) {
+        console.error('Error logging out:', error);
+    }
+}
+
+// library.js (or any script that runs on the library page)
+document.addEventListener('DOMContentLoaded', async function() {
+    const isAuthenticated = await checkAuthentication();
+    if (!isAuthenticated) {
+        window.location.href = 'login.html';
+    }
+});
+
+async function checkAuthentication() {
+    try {
+        const response = await fetch('/api/auth/check', {
+            method: 'GET',
+            credentials: 'same-origin' // include credentials for cross-origin requests
+        });
+        return response.ok;
+    } catch (error) {
+        console.error('Error checking authentication:', error);
+        return false;
+    }
+}
