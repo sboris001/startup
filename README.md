@@ -71,3 +71,13 @@ For this deliverable I added backend endpoints that receives username at login a
  - Calls to third party endpoints - done! (This is how I obtain the posters for display on the library screen -- I call an api called OMDBapi)
  - Backend service endpoints - Placeholders for login is there -- Endpoints for adding and retrieving movie data are implemented.
  - Frontend calls service endpoints - I replaced all instances of local storage with calls to my backend services using the fetch function.
+
+# DB/Login Deliverable
+For this deliverable I associate certain movies and their ratings with the specific logged in user.  These movies are stored in the mongo database, as well as the users themselves.
+ - MongoDB Atlas database created - done!
+ - Stores data in MongoDB - done!
+ - User registration - Creates a new account in the database.  Alerts the user if the username is already taken
+ - Existing user - Allows a user to log in if their information matches what is in the database.  Logging in takes them to their library which has their movies and ratings and allows them to add to their library.
+ - Use MongoDB to store credentials - Storees both user and their movies
+ - Restricts functionality - You cannot access the library page or leaderboard page without being logged in (it redirects you back to the login) - You can't add movies without being logged in.
+ - Leaderboard funcionality - The leaderboard is updated using all movies and ratings from every user.  It finds each movie's average rating, lists the top ten, and how many people have rated it.  In the future I'm thinking of adding a condition that at least 5 people must have rated the movie just so we don't get a bunch of 10 rated movies up there from a single user.
