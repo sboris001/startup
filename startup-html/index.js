@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const app = express();
 const DB = require('./database.js');
+const { peerProxy } = require('./peerProxy.js');
 
 const authCookieName = 'token';
 
@@ -122,48 +123,13 @@ apiRouter.get('/getAllMovies', async (req, res) => {
     res.status(200).json(movies);
 });
 
-// Add movie endpoint
-// apiRouter.post('/addMovie', (req, res) => {
-//     const { title, rating } = req.body;
-//     console.log(title)
-//     console.log(rating)
-//     addMovie({ title, rating });
-//     res.status(200).json({ message: 'Movie added successfully' });
-// });
-
-// Get movies
-// apiRouter.get('/getMovies', async (req, res) => {
-//     // Retrieve
-//     const movies = getMovies();
-//     // Return
-//     res.status(200).json(movies);
-// });
-
 // Return the application's default page if the path is unknown
 app.use((_req, res) => {
     res.sendFile('index.html', { root: 'public' });
 });
   
-app.listen(port, () => {
+const httpService = app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
 
-// Methods
-
-// var movies = []
-// function addMovie(movie) {
-//     movies.push(movie);
-// }
-
-function getMovies() {
-    return movies;
-}
-var users
-function login(user) {
-    users = user;
-    movies = [];
-}
-
-function getUser() {
-    return users;
-}
+peerProxy(httpService);
