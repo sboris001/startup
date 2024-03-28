@@ -1,54 +1,79 @@
-// Establish WebSocket connection
-const socketUrl = `ws://${window.location.hostname}:${window.location.port}`;
-const socket = new WebSocket(socketUrl);
+// // Event handler for WebSocket connection open
+// socket.addEventListener('open', function(event) {
+//     console.log('WebSocket connection established');
+// });
 
-// Event handler for WebSocket connection open
-socket.addEventListener('open', function(event) {
-    console.log('WebSocket connection established');
-});
+// // Event handler for WebSocket errors
+// socket.addEventListener('error', function(event) {
+//     console.error('WebSocket error:', event);
+// });
 
-// Event handler for WebSocket errors
-socket.addEventListener('error', function(event) {
-    console.error('WebSocket error:', event);
-});
+// // Event handler for WebSocket connection close
+// socket.addEventListener('close', function(event) {
+//     console.log('WebSocket connection closed');
+// });
 
-// Event handler for WebSocket connection close
-socket.addEventListener('close', function(event) {
-    console.log('WebSocket connection closed');
-});
+// // Event handler for WebSocket messages
+// socket.onmessage((event) => {
+//     const MAX_MESSAGES = 5;
+//     console.log(event.data)
+//     const ratingMessage = JSON.parse(event.data);
+//     const { user, movieTitle, rating } = ratingMessage;
+//     const chatText = document.querySelector('#player-messages');
 
-// Event handler for WebSocket messages
-socket.addEventListener('message', function(event) {
-    const MAX_MESSAGES = 5;
-    console.log(event.data)
-    const ratingMessage = JSON.parse(event.data);
+//     if (socket.readyState === WebSocket.OPEN) {
+//         // Process the message
+//         console.log(ratingMessage);
+//         console.log(user);
+//         console.log(movieTitle);
+//         console.log(rating);
+//     } else {
+//         console.error('WebSocket connection is not open');
+//     }
+//     // Create a new message
+    
+//     const newMessage = `<div class="event"><span class="player-event">${user}</span> rated "${movieTitle}" ${rating}</div>`;
+//     chatText.innerHTML = newMessage + chatText.innerHTML;
+
+//     // Check if the number of messages exceeds the maximum limit
+//     const messages = chatText.querySelectorAll('.event');
+//     if (messages.length > MAX_MESSAGES) {
+//         // Remove the oldest message
+//         messages[messages.length - 1].remove();
+//     }
+
+//     // Update or add movie to the library display
+//     fetchAndDisplayMoviePoster(movieTitle, rating);
+// });
+
+// // Establish WebSocket connection
+const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+
+socket.onopen = (event) => {
+    console.log('WebSocket opened');
+};
+socket.onclose = (event) => {
+    console.log('WebSocket closed')
+};
+socket.onmessage = async (event) => {
+    const ratingMessage = JSON.parse(await event.data);
+    console.log(ratingMessage);
     const { user, movieTitle, rating } = ratingMessage;
     const chatText = document.querySelector('#player-messages');
-
-    if (socket.readyState === WebSocket.OPEN) {
-        // Process the message
-        console.log(ratingMessage);
-        console.log(user);
-        console.log(movieTitle);
-        console.log(rating);
-    } else {
-        console.error('WebSocket connection is not open');
-    }
-    // Create a new message
+    // const newMessage = documet.createElement('div');
+    // newMessage.className = "event";
+    // const span = document.createElement('span');
     
     const newMessage = `<div class="event"><span class="player-event">${user}</span> rated "${movieTitle}" ${rating}</div>`;
     chatText.innerHTML = newMessage + chatText.innerHTML;
-
-    // Check if the number of messages exceeds the maximum limit
     const messages = chatText.querySelectorAll('.event');
-    if (messages.length > MAX_MESSAGES) {
-        // Remove the oldest message
+    if (messages.length > 5) {
         messages[messages.length - 1].remove();
     }
+};
+  
 
-    // Update or add movie to the library display
-    fetchAndDisplayMoviePoster(movieTitle, rating);
-});
 
 function getUser() {
     return localStorage.getItem('userName');
@@ -289,5 +314,3 @@ async function checkAuthentication() {
         return false;
     }
 }
-
-
