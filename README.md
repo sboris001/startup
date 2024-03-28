@@ -81,3 +81,10 @@ For this deliverable I associate certain movies and their ratings with the speci
  - Use MongoDB to store credentials - Stores both user and their movies
  - Restricts functionality - You cannot access the library page or leaderboard page without being logged in (it redirects you back to the login) - You can't add movies without being logged in.
  - Leaderboard funcionality - The leaderboard is updated using all movies and ratings from every user.  It finds each movie's average rating, lists the top ten, and how many people have rated it.  In the future I'm thinking of adding a condition that at least 5 people must have rated the movie just so we don't get a bunch of 10 rated movies up there from a single user.
+
+# WebSocket Deliverable
+For this deliverable I used webSocket to display user's ratings in realtime.
+ - Backend listens for WebSocket connection - done!
+ - Frontend makes WebSocket connection - done!
+ - Data set over WebSocket conneciton - done!
+ - WebSocket data displayed - When you rate a movie, if another user is online at the same time it will display to them your username, the movie you rated, and what you rated it.  I made it so that it rolls over if there are more than 5 messages in the box with the oldest message leaving first.
