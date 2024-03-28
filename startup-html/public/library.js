@@ -1,14 +1,64 @@
+// Establish WebSocket connection
+const socketUrl = `ws://${window.location.hostname}:${window.location.port}`;
+const socket = new WebSocket(socketUrl);
+
+// Event handler for WebSocket connection open
+socket.addEventListener('open', function(event) {
+    console.log('WebSocket connection established');
+});
+
+// Event handler for WebSocket errors
+socket.addEventListener('error', function(event) {
+    console.error('WebSocket error:', event);
+});
+
+// Event handler for WebSocket connection close
+socket.addEventListener('close', function(event) {
+    console.log('WebSocket connection closed');
+});
+
+// Event handler for WebSocket messages
+socket.addEventListener('message', function(event) {
+    const MAX_MESSAGES = 5;
+    console.log(event.data)
+    const ratingMessage = JSON.parse(event.data);
+    const { user, movieTitle, rating } = ratingMessage;
+    const chatText = document.querySelector('#player-messages');
+
+    if (socket.readyState === WebSocket.OPEN) {
+        // Process the message
+        console.log(ratingMessage);
+        console.log(user);
+        console.log(movieTitle);
+        console.log(rating);
+    } else {
+        console.error('WebSocket connection is not open');
+    }
+    // Create a new message
+    
+    const newMessage = `<div class="event"><span class="player-event">${user}</span> rated "${movieTitle}" ${rating}</div>`;
+    chatText.innerHTML = newMessage + chatText.innerHTML;
+
+    // Check if the number of messages exceeds the maximum limit
+    const messages = chatText.querySelectorAll('.event');
+    if (messages.length > MAX_MESSAGES) {
+        // Remove the oldest message
+        messages[messages.length - 1].remove();
+    }
+
+    // Update or add movie to the library display
+    fetchAndDisplayMoviePoster(movieTitle, rating);
+});
+
 function getUser() {
     return localStorage.getItem('userName');
 }
-
 
 function displayUserName() {
     const element = document.getElementById("userName");
     const user = getUser();
     element.innerHTML = user;
 }
-
 
 function addMovieFromForm() {
     const movieTitle = document.getElementById('movie').value;
@@ -43,7 +93,6 @@ function displayMovies() {
         });
 }
 
-
 function createPoster(src, alt, height, title, rating) {
     let divElement = document.createElement('div');
     divElement.classList.add('libraryItems');
@@ -67,16 +116,15 @@ function createPoster(src, alt, height, title, rating) {
     return divElement;
 }
 
-
 function queryString(title) {
     const cleanTitle = title.split(" ");
     let string = "";
     for (const element of cleanTitle) {
-      if (element !== cleanTitle[cleanTitle.length - 1]) {
-        string = string + element + "+";
-      } else {
-        string = string + element;
-      }
+        if (element !== cleanTitle[cleanTitle.length - 1]) {
+            string = string + element + "+";
+        } else {
+            string = string + element;
+        }
     }
     return `https://www.omdbapi.com/?t=${string}&apikey=4fcd8264`;
 }
@@ -97,9 +145,7 @@ async function getMovieInfoPromise(title) {
     }
 }
 
-
 async function addMovie(movieTitle, ratingInput) {
-
     // Validate the rating input
     const rating = parseFloat(ratingInput);
     if (isNaN(rating)) {
@@ -115,9 +161,19 @@ async function addMovie(movieTitle, ratingInput) {
     // Format the rating to always have one decimal place
     const formattedRating = rating.toFixed(1);
 
+    // Send user rating information over WebSocket
+    const user = getUser();
+    const ratingMessage = {
+        user: user,
+        movieTitle: movieTitle,
+        rating: formattedRating
+    };
+    console.log(ratingMessage)
+    socket.send(JSON.stringify(ratingMessage));
+
     // Retrieve existing movie library or initialize an empty array
     let movieLibrary = await getMovies();
-    
+
     // Check if the movie already exists in the library
     const existingMovieIndex = movieLibrary.findIndex(movie => movie.title === movieTitle);
 
@@ -139,7 +195,7 @@ async function addMovie(movieTitle, ratingInput) {
 
                 // Add the new movie to the library with the formatted rating
                 movieLibrary.push({ title: movieTitle, rating: formattedRating });
-                
+
                 // Save the updated movie library
                 fetch('/api/addMovie', {
                     method: 'POST',
@@ -148,7 +204,7 @@ async function addMovie(movieTitle, ratingInput) {
                     },
                     body: JSON.stringify({title: movieTitle, rating: formattedRating})
                 })
-                
+
                 // Display the poster
                 fetchAndDisplayMoviePoster(title, formattedRating);
             })
@@ -190,7 +246,6 @@ function fetchAndDisplayMoviePoster(movieTitle, rating) {
         });
 }
 
-
 document.addEventListener('DOMContentLoaded', async function() {
     const movieLibrary =  await getMovies();
     console.log("MovieLibrary: ", movieLibrary)
@@ -199,34 +254,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         fetchAndDisplayMoviePoster(movie.title, movie.rating)
     }
 });
-
-const MAX_MESSAGES = 5;
-
-// Function to simulate chat messages that will come over WebSocket
-setInterval(() => {
-    const rating = (Math.floor(Math.random() * 10) + Math.round(Math.random() * 10) / 10).toFixed(1);
-    const chatText = document.querySelector('#player-messages');
-    let users = ["Greg", "Frederick", "Hershey", "Marcell", "Jose", "Ignacio", "Albert", "Grace", "Horacio", "Patrick", "Lucas", "Luke", "Brighton"];
-    let movies = ["The Dark Knight", "Bee Movie", "Jumanji", "Get Smart", "Red Notice", "Brightburn", "Spider-man", "Ironman", "Logan Lucky", "21 Jump Street", "The Peanut Butter Falcon", "The Godfather Part II", "The Godfather", "Pulp Fiction"];
-
-    // Create a new message
-    const newMessage = `<div class="event"><span class="player-event">${getRandomItem(users)}</span> rated "${getRandomItem(movies)}" ${rating}</div>`;
-    chatText.innerHTML = newMessage + chatText.innerHTML;
-
-    // Check if the number of messages exceeds the maximum limit
-    const messages = chatText.querySelectorAll('.event');
-    if (messages.length > MAX_MESSAGES) {
-        // Remove the oldest message
-        messages[messages.length - 1].remove();
-    }
-}, 5000);
-
-// Function to get a random item from an array
-function getRandomItem(array) {
-    const randomIndex = Math.floor(Math.random() * array.length);
-    return array[randomIndex];
-}
-
 
 async function logout() {
     try {
@@ -262,3 +289,5 @@ async function checkAuthentication() {
         return false;
     }
 }
+
+
