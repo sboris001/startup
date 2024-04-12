@@ -1,3 +1,4 @@
 startup-html/service/node_modules
+startup-html/node_modules
 startup-html/dbConfig.json
 mongoTest/node_modules
