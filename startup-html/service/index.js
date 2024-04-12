@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Serve up the applications static content
-app.use(express.static('public'));
+app.use(express.static('../startup-html'));
 
 // Trust headers that are forwarded from the proxy so we can determine IP addresses
 app.set('trust proxy', true);
@@ -125,7 +125,7 @@ apiRouter.get('/getAllMovies', async (req, res) => {
 
 // Return the application's default page if the path is unknown
 app.use((_req, res) => {
-    res.sendFile('index.html', { root: 'public' });
+    res.sendFile('index.html', { root: '../startup-html' });
 });
   
 const httpService = app.listen(port, () => {
