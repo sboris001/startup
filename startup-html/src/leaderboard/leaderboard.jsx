@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Login() {
+export function Leaderboard() {
   return (
     <main>
       <div>Leaderboard displayed here</div>

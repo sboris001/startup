@@ -1,39 +1,43 @@
 import React from 'react';
 import './app.css';
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { Login } from './login/login';
+import { Library } from './library/library';
+import { Leaderboard } from './leaderboard/leaderboard';
+
+
 
 export default function App() {
     return (
-        <html lang="en" className="bg">
-            <head>
-                <meta charSet="UTF-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <link rel="stylesheet" href="index.css" />
-                <link rel="stylesheet" href="styles.css" />
-                <title>Home</title>
-            </head>
-            <body>
-                <header>
-                    <nav>
-                        <menu className="topnav">
-                            <a href="index.html">Home</a>
-                            <a href="library.html">Library</a>
-                            <a href="leaderboard.html">Leaderboard</a>
-                        </menu>
-                    </nav>
-                </header>
-
-                <main>
-                    <div className="center">
-                    </div>
-                </main>
-
-                <footer>
-                    <section className="author">
-                        <p>&nbsp;&nbsp;&nbsp;Spencer Boris: &nbsp;&nbsp;&nbsp;<a href="https://github.com/sboris001/startup">GitHub</a></p>
-                    </section>
-                </footer>
-
-            </body>
-        </html>
+        <BrowserRouter>
+            <html lang="en" className="bg">
+                <body>
+                    <menu className="topnav">
+                        <NavLink to="/">Home</NavLink>
+                        <NavLink to="/library">Library</NavLink>
+                        <NavLink to="/leaderboard">Leaderboard</NavLink>
+                    </menu>
+                    <main>
+                        <div className="center">
+                            <Routes>
+                                <Route path="/" element={<Login />} />
+                                <Route path="/library" element={<Library />} />
+                                <Route path="/leaderboard" element={<Leaderboard />} />
+                                <Route path="*" element={<NotFound />} />
+                            </Routes>
+                        </div>
+                    </main>
+                    <footer>
+                        <section className="author">
+                            <p>&nbsp;&nbsp;&nbsp;Spencer Boris: &nbsp;&nbsp;&nbsp;<a href="https://github.com/sboris001/startup">GitHub</a></p>
+                        </section>
+                    </footer>
+                </body>
+            </html>
+        </BrowserRouter>
     );
-  }
+}
+
+function NotFound() {
+    return <main>404: Return to sender. Address unknown.</main>
+}
