@@ -146,3 +146,7 @@ p.title {
     padding-bottom: 0;
     color: white;
 }
+
+#player-messages {
+    color: black;
+}

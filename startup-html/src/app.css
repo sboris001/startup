@@ -144,6 +144,7 @@ main {
 #pageContainer {
     position: relative;
     min-height: 100vh;
+    color: white;
 }
 
 #contentWrap {
