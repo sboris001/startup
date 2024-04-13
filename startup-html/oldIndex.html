@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" class="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="login.js"></script>
+    <title>Home</title>
+</head>
+<body>
+    <header>
+    <nav>
+        <menu class="topnav">
+            <a class="active" href="index.html">Home</a></li>
+        </menu>
+    </nav>
+    </header>
+
+    <main>
+        <div class="cameraIcon"><img src="assets/cameraIcon.svg" class="icon" height="105" width="105"/></div>
+        <div class="center">
+            <form class="login" method="get">
+                <h3>Movie Rater</h3>
+                <input type="text" id="name" placeholder="Username">
+                <input type="password" id="password" placeholder="Password">
+                <button class="btn1" onclick="event.preventDefault(); loginUser()">Login</button>
+                <button class="btn1" onclick="event.preventDefault(); createUser()">Create</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <section class="author">
+            <p>&nbsp;&nbsp;&nbsp;Spencer Boris: &nbsp;&nbsp;&nbsp;<a href="https://github.com/sboris001/startup">GitHub</a></p>
+        </section>
+    </footer>
+
+</body>
+</html>
