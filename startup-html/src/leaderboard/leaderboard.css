@@ -24,7 +24,7 @@ tr:nth-child(odd) {background-color: lightgrey;}
     padding: 30px;
 }
 
-.title {
+.leaderBoardTitle {
     text-align: center;
     font-size: 3em;
     color: white;
