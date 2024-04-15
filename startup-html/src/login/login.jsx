@@ -1,18 +1,22 @@
 import React from 'react';
 import './login.css';
+import { useNavigate } from 'react-router-dom';
 
 export function Login() {
+    const navigate = useNavigate();
+
     async function loginUser() {
-        loginOrCreate(`/api/auth/login`);
+        await loginOrCreate(`/api/auth/login`, navigate);
     }
       
     async function createUser() {
-        loginOrCreate(`/api/auth/create`);
+        await loginOrCreate(`/api/auth/create`, navigate);
     }
       
-    async function loginOrCreate(endpoint) {
+    async function loginOrCreate(endpoint, navigate) {
         const userName = document.querySelector('#name')?.value;
         const password = document.querySelector('#password')?.value;
+
         if (userName === "") {
             alert("Please enter a username");
             return;
@@ -24,13 +28,13 @@ export function Login() {
             method: 'post',
             body: JSON.stringify({ username: userName, password: password }),
             headers: {
-            'Content-type': 'application/json; charset=UTF-8',
+                'Content-type': 'application/json; charset=UTF-8',
             },
         });
     
         if (response.ok) {
             localStorage.setItem('userName', userName);
-            window.location.href = '/library';
+            navigate('/library');
         } else {
             const body = await response.json();
             alert(`⚠ Error: ${body.msg}`);
