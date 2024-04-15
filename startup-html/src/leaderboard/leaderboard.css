@@ -29,3 +29,7 @@ tr:nth-child(odd) {background-color: lightgrey;}
     font-size: 3em;
     color: white;
 }
+
+#leaderboard-table {
+    color: black;
+}

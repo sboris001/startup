@@ -2,7 +2,7 @@ import React from 'react';
 import './login.css';
 import { useNavigate } from 'react-router-dom';
 
-export function Login() {
+export function Login({ setUserName }) {
     const navigate = useNavigate();
 
     async function loginUser() {
@@ -34,6 +34,7 @@ export function Login() {
     
         if (response.ok) {
             localStorage.setItem('userName', userName);
+            setUserName(userName);
             navigate('/library');
         } else {
             const body = await response.json();
@@ -47,8 +48,8 @@ export function Login() {
             <div className="center">
                 <form className="login" method="get">
                     <h3>Movie Rater</h3>
-                    <input type="text" id="name" placeholder="Username" />
-                    <input type="password" id="password" placeholder="Password" />
+                    <input type="text" id="name" placeholder="Username" autoComplete="username" />
+                    <input type="password" id="password" placeholder="Password" autoComplete="current-password" />
                     <button className="btn1" onClick={(event) => { event.preventDefault(); loginUser(); }}>Login</button>
                     <button className="btn1" onClick={(event) => { event.preventDefault(); createUser(); }}>Create</button>
                 </form>

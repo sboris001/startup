@@ -90,12 +90,15 @@ body {
 	src: url('assets/Rubik-VariableFont_wght.ttf');
 }
 
-body {
-    height: 100vh;
+body, #root {
+    margin: 0;
+}
+
+.body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    font-family:Rubik;
+    font-family: Rubik;
 }
 
 header, footer {

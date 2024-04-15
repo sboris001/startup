@@ -1,14 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './library.css';
 
-export function Library() {
-    const [userName, setUserName] = useState('');
+export function Library({ userName }) {
+
+    const name = userName;
 
     useEffect(() => {
-        displayUserName();
+        if (userName) {
+            localStorage.setItem('userName', userName);
+        }
         fetchMovies();
         establishWebSocket();
     }, []);
+
+    async function getMovies() {
+        try {
+            const response = await fetch('/api/getMovies');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const movies = await response.json();
+            console.log('Movies received:', movies);
+            return movies;
+        } catch (error) {
+            console.error('Error fetching movies:', error);
+            throw error;
+        }
+    }
 
     async function fetchMovies() {
         try {
@@ -22,15 +40,6 @@ export function Library() {
         } catch (error) {
             console.error('Error fetching movies:', error);
         }
-    }
-
-    function displayUserName() {
-        const user = getUser();
-        setUserName(user);
-    }
-
-    function getUser() {
-        return localStorage.getItem('userName');
     }
 
     function establishWebSocket() {
@@ -195,13 +204,11 @@ export function Library() {
                         },
                         body: JSON.stringify({title: movieTitle, rating: formattedRating})
                     })
-    
-                    // Display the poster
-                    // fetchAndDisplayMoviePoster(title, formattedRating);
                 })
                 .catch(error => {
                     console.error('Error:', error);
                 });
+            displayMovies(movieLibrary);
         }
     
         return false;
@@ -246,7 +253,7 @@ export function Library() {
                                 <div className="formItem">&nbsp;&nbsp;<input className="input" type="text" name="movie" id="movie" placeholder="Enter a movie title" /></div>
                                 <div className="gridItem">Your rating:&nbsp;&nbsp;</div>
                                 <div className="formItem">&nbsp;&nbsp;<input className="input" type="text" name="rating" id="rating" placeholder="Enter your rating" /></div>
-                                <div className="btn"><button className="btn2" id="add-button" onClick={() => { addMovieFromForm(); }} type="submit">Add</button></div>
+                                <div className="btn"><button className="btn2" id="add-button" onClick={() => { addMovieFromForm() }} type="submit">Add</button></div>
                             </form>
                         </div>
                     </div>
@@ -263,7 +270,7 @@ export function Library() {
             </section>
 
             <section className="titleSection">
-                <div className="title"><h1 id="userName">{userName}</h1><h1>'s Library</h1></div>
+                <div className="title"><h1 id="userName">{ localStorage.getItem('userName') }</h1><h1>'s Library</h1></div>
             </section>
             <section className="librarySection">
             </section>
