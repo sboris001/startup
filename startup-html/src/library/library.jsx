@@ -197,7 +197,7 @@ export function Library() {
                     })
     
                     // Display the poster
-                    fetchAndDisplayMoviePoster(title, formattedRating);
+                    // fetchAndDisplayMoviePoster(title, formattedRating);
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -246,7 +246,7 @@ export function Library() {
                                 <div className="formItem">&nbsp;&nbsp;<input className="input" type="text" name="movie" id="movie" placeholder="Enter a movie title" /></div>
                                 <div className="gridItem">Your rating:&nbsp;&nbsp;</div>
                                 <div className="formItem">&nbsp;&nbsp;<input className="input" type="text" name="rating" id="rating" placeholder="Enter your rating" /></div>
-                                <div className="btn"><button className="btn2" id="add-button" type="submit">Add</button></div>
+                                <div className="btn"><button className="btn2" id="add-button" onClick={() => { addMovieFromForm(); }} type="submit">Add</button></div>
                             </form>
                         </div>
                     </div>
