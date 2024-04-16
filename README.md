@@ -88,3 +88,10 @@ For this deliverable I used webSocket to display user's ratings in realtime.
  - Frontend makes WebSocket connection - done!
  - Data set over WebSocket conneciton - done!
  - WebSocket data displayed - When you rate a movie, if another user is online at the same time it will display to them your username, the movie you rated, and what you rated it.  I made it so that it rolls over if there are more than 5 messages in the box with the oldest message leaving first.
+
+# React Deliverable
+For this deliverable I converted the application to use React.
+ - Bundled and transpiled - done!
+ - Components - Login, Library, and Leaderboard components.
+ - Router - Routing between the Login, Library, and Leaderboard components works.
+ - Hooks - I use the useState hook to keep track of certain changes such as username, user personal library, and the list of all movies used for the leaderboard.  I also use the useEffect hook to keep track of various methods such as generateLeaderboard(), fetchMovies(), and establishWebsocket().
