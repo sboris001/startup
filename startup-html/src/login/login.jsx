@@ -44,7 +44,7 @@ export function Login({ setUserName }) {
 
     return (
         <main>
-            <div className="cameraIcon"><img src="assets/cameraIcon.svg" className="icon" height="105" width="105" alt="Camera Icon" /></div>
+            <div className="cameraIcon"><img src="./cameraIcon.svg" className="icon" height="105" width="105" alt="Camera Icon" /></div>
             <div className="center">
                 <form className="login" method="get">
                     <h3>Movie Rater</h3>
